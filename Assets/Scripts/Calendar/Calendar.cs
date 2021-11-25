@@ -1,9 +1,5 @@
 using System;
-using System.Linq;
-using System.Globalization;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using Newtonsoft.Json;
 
 public class Calendar
@@ -14,6 +10,11 @@ public class Calendar
 	{
 		CreateDayIfItDoesntExists(date);
 		Days[date] += value;
+		
+		if (Days[date] < 0)
+		{
+			Days[date] = 0;
+		}
 	}
 
 	public void ChangeTodayValueBy(int value)

@@ -1,11 +1,13 @@
+using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Stopwatch : MonoBehaviour
 {
-	Upgrade Upgrade;
-	bool timerIsRunning;
-	float nextUpdateSecond;
+#pragma warning disable 0649
+
+	[SerializeField] Text upgradeName;
 
 	[SerializeField] Text seconds;
 	[SerializeField] Text minutes;
@@ -14,34 +16,45 @@ public class Stopwatch : MonoBehaviour
 	[SerializeField] Button start;
 	[SerializeField] Button stop;
 
-	private void Start()
-	{
-		print("stopwatch Satrart");
-		DisableTimer();
-	}
+	[SerializeField] Button gotDistractedBy15;
+	[SerializeField] Button gotDistractedBy30;
+	[SerializeField] Button gotDistractedCustom;
+	[SerializeField] InputField gotDistractedInputField;
+	[SerializeField] DisappearingText disappearingText;
+ 
+#pragma warning restore 0649
+
+	Upgrade upgrade;
+	bool timerIsRunning;
+	float nextUpdateSecond;
+
+	public static event Action OnStopwatchSrart;
+	public static event Action OnStopwatchStop;
 
 	private void Update()
 	{
 		if (timerIsRunning && UnityEngine.Time.time > nextUpdateSecond)
 		{
-			Upgrade.Calendar.ChangeTodayValueBy(1);
+			upgrade.Calendar.ChangeTodayValueBy(1);
 			UpdateDisplay();
 
 			nextUpdateSecond += 1;
 		}
 	}
 
-	public void SetUpgrade(Upgrade upgrade)
+	public void ChangeActiveUpgrade(Upgrade upgrade)
 	{
-		Upgrade = upgrade;
+		this.upgrade = upgrade;
 		UpdateDisplay();
 	}
 
 	void UpdateDisplay()
 	{
-		if (Upgrade != null)
+		if (upgrade != null)
 		{
-			int sec = Upgrade.Calendar.GetTodayValue();
+			upgradeName.text = upgrade.Name;
+
+			int sec = upgrade.Calendar.GetTodayValue();
 
 			seconds.text = FormatNumberForDisplay(TimeConverter.Seconds(sec));
 			minutes.text = FormatNumberForDisplay(TimeConverter.Minutes(sec));
@@ -61,38 +74,81 @@ public class Stopwatch : MonoBehaviour
 		}
 	}
 
-	void ActivateTimer()
+	void StartStopwatch()
 	{
 		if (!timerIsRunning)
 		{
 			nextUpdateSecond = UnityEngine.Time.time + 1;
 			timerIsRunning = true;
 		}
+
+		OnStopwatchSrart?.Invoke();
 	}
 
-	void DisableTimer()
+	void StopStopwatch()
 	{
 		if (timerIsRunning)
 		{
 			timerIsRunning = false;
 		}
+
+		OnStopwatchStop?.Invoke();
 	}
+
+	void GotDistracted(int minutes)
+	{
+		upgrade.Calendar.ChangeTodayValueBy(-minutes * 60);
+		UpdateDisplay();
+
+		disappearingText.Play("-" + minutes);
+	}
+
+	// Events
+	void ActiveUpgradeChanged(Upgrade upgrade)
+	{
+		ChangeActiveUpgrade(upgrade);
+	}
+
+	void GotDistractedBy15()
+	{
+		GotDistracted(15);
+	}
+
+	void GotDistractedBy30()
+	{
+		GotDistracted(30);
+	}
+
+	void GotDistractedCustom()
+	{
+		int distractedBy = Int32.Parse(gotDistractedInputField.text);
+		GotDistracted(distractedBy);
+	}
+	//
 
 	private void OnEnable()
 	{
-		SetUpgrade(UpgradeDropdown.Instance.GetActive());
+		ChangeActiveUpgrade(UpgradeDropdown.Instance.GetActive());
 
-		start.onClick.AddListener(ActivateTimer);
-		stop.onClick.AddListener(DisableTimer);
+		UpgradeDropdown.Instance.OnActiveUpgradeChanged += ActiveUpgradeChanged;
 
-		UpgradeDropdown.Instance.OnActiveUpgradeChanged += SetUpgrade;
+		start.onClick.AddListener(StartStopwatch);
+		stop.onClick.AddListener(StopStopwatch);
+		gotDistractedBy15.onClick.AddListener(GotDistractedBy15);
+		gotDistractedBy30.onClick.AddListener(GotDistractedBy30);
+		gotDistractedCustom.onClick.AddListener(GotDistractedCustom);
 	}
 
 	private void OnDisable()
 	{
-		start.onClick.RemoveListener(ActivateTimer);
-		stop.onClick.RemoveListener(DisableTimer);
+		StopStopwatch();
 
-		UpgradeDropdown.Instance.OnActiveUpgradeChanged += SetUpgrade;
+		UpgradeDropdown.Instance.OnActiveUpgradeChanged -= ActiveUpgradeChanged;
+
+		start.onClick.RemoveListener(StartStopwatch);
+		stop.onClick.RemoveListener(StopStopwatch);
+		gotDistractedBy15.onClick.RemoveListener(GotDistractedBy15);
+		gotDistractedBy30.onClick.RemoveListener(GotDistractedBy30);
+		gotDistractedCustom.onClick.RemoveListener(GotDistractedCustom);
 	}
 }

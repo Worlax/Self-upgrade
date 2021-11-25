@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
 using Newtonsoft.Json;
+using UnityEngine;
 
 public enum UpgradeType
 {
@@ -19,7 +19,9 @@ public class Upgrade
 
 	private Upgrade() { }
 
-	public static Upgrade NewUpgrade(string name, UpgradeType type)
+	public static event Action<Upgrade> OnNewUpgradeCreated;
+
+	public static Upgrade CreateUpgrade(string name, UpgradeType type)
 	{
 		string formatName = FormatName(name);
 
@@ -32,6 +34,8 @@ public class Upgrade
 			};
 
 			AllUpgrades.Add(upgrade);
+
+			OnNewUpgradeCreated?.Invoke(upgrade);
 
 			return upgrade;
 		}

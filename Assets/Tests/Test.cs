@@ -30,14 +30,14 @@ public class Test : MonoBehaviour
 	{
 		print("Hui created!");
 
-		Upgrade.NewUpgrade("Hui", UpgradeType.Timer);
+		Upgrade.CreateUpgrade("Hui", UpgradeType.Timer);
 	}
 
 	void Button4()
 	{
 		print("Pizda created!");
 
-		Upgrade.NewUpgrade("Pizda", UpgradeType.Timer);
+		Upgrade.CreateUpgrade("Pizda", UpgradeType.Timer);
 	}
 
 	private void OnEnable()

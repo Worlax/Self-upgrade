@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 
@@ -23,12 +22,14 @@ public static class JsonSerializer
 
 	public static void LoadProgress()
 	{
-		Debug.Log("loaded");
-		string json = File.ReadAllText(SaveFile);
-		AppData appData = JsonConvert.DeserializeObject<AppData>(json);
-		AppData.LoadData(appData);
+		if (File.Exists(SaveFile))
+		{
+			string json = File.ReadAllText(SaveFile);
+			AppData appData = JsonConvert.DeserializeObject<AppData>(json);
+			AppData.LoadData(appData);
 
-		OnProgressLoaded?.Invoke();
+			OnProgressLoaded?.Invoke();
+		}
 	}
 
 	static void CreateSaveDirectory()

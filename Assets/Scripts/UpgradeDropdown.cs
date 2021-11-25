@@ -6,11 +6,15 @@ using UnityEngine.UI;
 
 public class UpgradeDropdown : Singleton<UpgradeDropdown>
 {
+#pragma warning disable 0649
+
 	[SerializeField] Dropdown dropdown;
 
-	public Action<Upgrade> OnActiveUpgradeChanged;
+#pragma warning restore 0649
 
-	void UpdateVisual()
+	public event Action<Upgrade> OnActiveUpgradeChanged;
+
+	void UpdateDisplay()
 	{
 		List<Dropdown.OptionData> newOptions = new List<Dropdown.OptionData>();
 
@@ -29,20 +33,36 @@ public class UpgradeDropdown : Singleton<UpgradeDropdown>
 		return Upgrade.AllUpgrades.Find(obj => obj.Name == upgradeName);
 	}
 
+	// Events
+	void ProgressLoaded()
+	{
+		UpdateDisplay();
+	}
+
+	void NewUpdateCreated(Upgrade upgrade)
+	{
+		UpdateDisplay();
+	}
+
 	void ActiveUpgradeChanged(int value)
 	{
 		OnActiveUpgradeChanged?.Invoke(GetActive());
 	}
+	//
 
 	private void OnEnable()
 	{
-		JsonSerializer.OnProgressLoaded += UpdateVisual;
+		UpdateDisplay();
+
+		JsonSerializer.OnProgressLoaded += ProgressLoaded;
+		Upgrade.OnNewUpgradeCreated += NewUpdateCreated;
 		dropdown.onValueChanged.AddListener(ActiveUpgradeChanged);
 	}
 
 	private void OnDisable()
 	{
-		JsonSerializer.OnProgressLoaded -= UpdateVisual;
+		JsonSerializer.OnProgressLoaded -= ProgressLoaded;
+		Upgrade.OnNewUpgradeCreated -= NewUpdateCreated;
 		dropdown.onValueChanged.RemoveListener(ActiveUpgradeChanged);
 	}
 }
