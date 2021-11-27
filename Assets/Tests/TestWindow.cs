@@ -37,7 +37,7 @@ public class TestWindow : MonoBehaviour
 
 	void Calendar(string input)
 	{
-		FindObjectOfType<VisualCalendar>().ShowYear(DateTime.Today);
+		FindObjectOfType<VisualCalendar>().ShowYearTab(DateTime.Today);
 	}
 	//
 

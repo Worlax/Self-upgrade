@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ClendarItemType
+public enum CalendarItemType
 {
 	Year, Month, Day
 }
@@ -11,34 +11,62 @@ public class CalendarItem : MonoBehaviour
 {
 #pragma warning disable 0649
 
-	[SerializeField] Text date;
-	[SerializeField] Text hours;
+	[SerializeField] Text dateText;
+	[SerializeField] Text hoursText;
+
+	[SerializeField] Button selfButton;
+
+	[SerializeField] CanvasGroup grayOut;
 
 #pragma warning restore 0649
 
-	public DateTime DateTime { get; private set; }
-	public ClendarItemType Type { get; private set; }
+	public DateTime Date { get; private set; }
+	public CalendarItemType Type { get; private set; }
 
-	public void Init(DateTime dateTime, ClendarItemType type)
+	public event Action<CalendarItem> OnClicked;
+
+	public void Init(DateTime dateTime, CalendarItemType type, bool isGrayOut)
 	{
-		DateTime = dateTime;
+		Date = dateTime;
 		Type = type;
+
+		if (isGrayOut)
+		{
+			grayOut.alpha = 0.35f;
+		}
 
 		switch (Type)
 		{
-			case ClendarItemType.Year:
-				date.text = DateTime.Year.ToString();
+			case CalendarItemType.Year:
+				dateText.text = Date.Year.ToString();
 				break;
 
-			case ClendarItemType.Month:
-				date.text = DateTime.ToString("MMM");
+			case CalendarItemType.Month:
+				dateText.text = Date.ToString("MMM");
 				break;
 
-			case ClendarItemType.Day:
-				date.text = DateTime.Day.ToString();
+			case CalendarItemType.Day:
+				dateText.text = Date.Day.ToString();
 				break;
 		}
 
-		hours.text = "0h 0m";
+		hoursText.text = "0h 0m";
+	}
+
+	// Events
+	void SelfButtonClicked()
+	{
+		OnClicked?.Invoke(this);
+	}
+	//
+
+	private void OnEnable()
+	{
+		selfButton?.onClick.AddListener(SelfButtonClicked);
+	}
+
+	private void OnDisable()
+	{
+		selfButton?.onClick.RemoveListener(SelfButtonClicked);
 	}
 }
