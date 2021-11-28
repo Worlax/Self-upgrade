@@ -30,6 +30,7 @@ public class Test : MonoBehaviour
 	}
 	//
 
+	// Unity
 	private void OnEnable()
 	{
 		openWindow.onClick.AddListener(openTestWindow);
@@ -39,4 +40,5 @@ public class Test : MonoBehaviour
 	{
 		openWindow.onClick.RemoveListener(openTestWindow);
 	}
+	//
 }

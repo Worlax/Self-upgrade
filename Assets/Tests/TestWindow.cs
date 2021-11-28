@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,11 +16,6 @@ public class TestWindow : MonoBehaviour
 #pragma warning restore 0649
 
 	public event Action OnWindowClosed;
-
-	private void Awake()
-	{
-		CreateTestItem("Create calendar", Calendar);
-	}
 
 	void CreateTestItem(string label, Action<string> callBack, bool doesHaveInput = false)
 	{
@@ -37,10 +34,19 @@ public class TestWindow : MonoBehaviour
 
 	void Calendar(string input)
 	{
-		FindObjectOfType<VisualCalendar>().ShowYearTab(DateTime.Today);
+		VisualCalendar calendar = FindObjectOfType<VisualCalendar>();
+
+		calendar.OpenYearTab(DateTime.Today);
+	}
+
+	void DataTimeTiest(string input)
+	{
+		print("Today: " + DateTime.Today);
+		print("Created day: " + new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day));
 	}
 	//
 
+	// Unity
 	private void OnEnable()
 	{
 		closeButton.onClick.AddListener(CloseWindow);
@@ -50,4 +56,11 @@ public class TestWindow : MonoBehaviour
 	{
 		closeButton.onClick.RemoveListener(CloseWindow);
 	}
+
+	private void Start()
+	{
+		CreateTestItem("Create calendar", Calendar);
+		CreateTestItem("Test dataTime", DataTimeTiest);
+	}
+	//
 }

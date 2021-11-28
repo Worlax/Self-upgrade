@@ -14,7 +14,7 @@ public class UpgradeDropdown : Singleton<UpgradeDropdown>
 
 	public event Action<Upgrade> OnActiveUpgradeChanged;
 
-	void UpdateDisplay()
+	public void UpdateDisplay()
 	{
 		List<Dropdown.OptionData> newOptions = new List<Dropdown.OptionData>();
 
@@ -50,10 +50,9 @@ public class UpgradeDropdown : Singleton<UpgradeDropdown>
 	}
 	//
 
+	// Unity
 	private void OnEnable()
 	{
-		UpdateDisplay();
-
 		JsonSerializer.OnProgressLoaded += ProgressLoaded;
 		Upgrade.OnNewUpgradeCreated += NewUpdateCreated;
 		dropdown.onValueChanged.AddListener(ActiveUpgradeChanged);
@@ -65,4 +64,5 @@ public class UpgradeDropdown : Singleton<UpgradeDropdown>
 		Upgrade.OnNewUpgradeCreated -= NewUpdateCreated;
 		dropdown.onValueChanged.RemoveListener(ActiveUpgradeChanged);
 	}
+	//
 }

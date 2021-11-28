@@ -50,12 +50,17 @@ public class Upgrade
 		AllUpgrades = upgrades;
 	}
 
+	public static List<Upgrade> GetAllUpgradesOfAType(UpgradeType type)
+	{
+		return AllUpgrades.Where(obj => obj.Type == type).ToList();
+	}
+
 	public static bool UpgradeAlreadyExists(string name)
 	{
 		return AllUpgrades.Any(x => x.Name == name);
 	}
 
-	public static string FormatName(string name)
+	static string FormatName(string name)
 	{
 		if (name.Length == 0)
 		{
@@ -69,10 +74,5 @@ public class Upgrade
 		{
 			return char.ToUpper(name[0]) + name.Substring(1).ToLower();
 		}
-	}
-
-	public static List<Upgrade> GetAllUpgradesOfAType(UpgradeType type)
-	{
-		return AllUpgrades.Where(obj => obj.Type == type).ToList();
 	}
 }

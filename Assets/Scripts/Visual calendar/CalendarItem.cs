@@ -17,6 +17,9 @@ public class CalendarItem : MonoBehaviour
 	[SerializeField] Button selfButton;
 
 	[SerializeField] CanvasGroup grayOut;
+	[SerializeField] CanvasGroup highlight;
+	[SerializeField] Color highlightColor;
+	[SerializeField] Image progressFill;
 
 #pragma warning restore 0649
 
@@ -25,16 +28,23 @@ public class CalendarItem : MonoBehaviour
 
 	public event Action<CalendarItem> OnClicked;
 
-	public void Init(DateTime dateTime, CalendarItemType type, bool isGrayOut)
+	public void Init(DateTime date, CalendarItemType type, bool isGrayOut, bool isHighlighted)
 	{
-		Date = dateTime;
+		Date = date;
 		Type = type;
 
-		if (isGrayOut)
+		if (isGrayOut && !isHighlighted)
 		{
 			grayOut.alpha = 0.35f;
 		}
 
+		if (isHighlighted)
+		{
+			highlight.alpha = 0.35f;
+			progressFill.color = highlightColor;
+		}
+
+		// Update date visual
 		switch (Type)
 		{
 			case CalendarItemType.Year:
@@ -50,7 +60,37 @@ public class CalendarItem : MonoBehaviour
 				break;
 		}
 
-		hoursText.text = "0h 0m";
+		UpdateHoursVisual(date);
+	}
+
+	void UpdateHoursVisual(DateTime date)
+	{
+		Upgrade activeUpgrade = UpgradeDropdown.Instance.GetActive();
+		int secondsInMyDate = 0;
+
+		switch (Type)
+		{
+			case CalendarItemType.Year:
+				DateTime startOfTheYear = new DateTime(date.Year, 1, 1);
+				DateTime endOfTheYear = new DateTime(date.Year, 12, 31);
+
+				secondsInMyDate = activeUpgrade.Calendar.GetValueInDiapason(startOfTheYear, endOfTheYear);
+				break;
+
+			case CalendarItemType.Month:
+				int daysInMonth = DateTime.DaysInMonth(date.Year, date.Month);
+				DateTime startOfTheMonth = new DateTime(date.Year, date.Month, 1);
+				DateTime endOfTheMonth = new DateTime(date.Year, date.Month, daysInMonth);
+
+				secondsInMyDate = activeUpgrade.Calendar.GetValueInDiapason(startOfTheMonth, endOfTheMonth);
+				break;
+
+			case CalendarItemType.Day:
+				secondsInMyDate = activeUpgrade.Calendar.GetValue(date);
+				break;
+		}
+
+		hoursText.text = TimeConverter.TimeString(secondsInMyDate);
 	}
 
 	// Events
@@ -58,15 +98,24 @@ public class CalendarItem : MonoBehaviour
 	{
 		OnClicked?.Invoke(this);
 	}
+
+	void ActiveUpgradeChanged(Upgrade upgrade)
+	{
+		UpdateHoursVisual(Date);
+	}
 	//
 
 	private void OnEnable()
 	{
 		selfButton?.onClick.AddListener(SelfButtonClicked);
+
+		UpgradeDropdown.Instance.OnActiveUpgradeChanged += ActiveUpgradeChanged;
 	}
 
 	private void OnDisable()
 	{
 		selfButton?.onClick.RemoveListener(SelfButtonClicked);
+
+		UpgradeDropdown.Instance.OnActiveUpgradeChanged -= ActiveUpgradeChanged;
 	}
 }
