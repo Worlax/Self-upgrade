@@ -23,26 +23,18 @@ public class CalendarItem : MonoBehaviour
 
 #pragma warning restore 0649
 
+	Color normalColor;
+
 	public DateTime Date { get; private set; }
 	public CalendarItemType Type { get; private set; }
 
 	public event Action<CalendarItem> OnClicked;
 
-	public void Init(DateTime date, CalendarItemType type, bool isGrayOut, bool isHighlighted)
+	public void Init(CalendarItemType type, DateTime date)
 	{
 		Date = date;
 		Type = type;
-
-		if (isGrayOut && !isHighlighted)
-		{
-			grayOut.alpha = 0.35f;
-		}
-
-		if (isHighlighted)
-		{
-			highlight.alpha = 0.35f;
-			progressFill.color = highlightColor;
-		}
+		normalColor = progressFill.color;
 
 		// Update date visual
 		switch (Type)
@@ -61,6 +53,36 @@ public class CalendarItem : MonoBehaviour
 		}
 
 		UpdateHoursVisual(date);
+	}
+
+	public void GrayOut(bool value)
+	{
+		if (value)
+		{
+			Highlight(false);
+
+			grayOut.alpha = 0.35f;
+		}
+		else
+		{
+			grayOut.alpha = 1f;
+		}
+	}
+
+	public void Highlight(bool value)
+	{
+		if (value)
+		{
+			GrayOut(false);
+
+			highlight.alpha = 0.35f;
+			progressFill.color = highlightColor;
+		}
+		else
+		{
+			highlight.alpha = 1f;
+			progressFill.color = normalColor;
+		}
 	}
 
 	void UpdateHoursVisual(DateTime date)

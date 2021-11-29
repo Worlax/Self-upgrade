@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Newtonsoft.Json;
 
 public class Calendar
@@ -8,6 +9,8 @@ public class Calendar
 
 	public void ChangeValueBy(DateTime date, int value)
 	{
+		date = RemoveTime(date);
+
 		CreateDayIfDosentExists(date);
 
 		Days[date] += value;
@@ -25,6 +28,8 @@ public class Calendar
 
 	public int GetValue(DateTime date)
 	{
+		date = RemoveTime(date);
+
 		if (Days.ContainsKey(date))
 		{
 			return Days[date];
@@ -42,6 +47,9 @@ public class Calendar
 
 	public int GetValueInDiapason(DateTime dateStart, DateTime dateEnd)
 	{
+		dateStart = RemoveTime(dateStart);
+		dateEnd = RemoveTime(dateEnd);
+
 		int value = 0;
 
 		DateTime currentDate = dateStart;
@@ -56,9 +64,16 @@ public class Calendar
 
 	void CreateDayIfDosentExists(DateTime date)
 	{
+		date = RemoveTime(date);
+
 		if (!Days.ContainsKey(date))
 		{
 			Days[date] = 0;
 		}
+	}
+
+	DateTime RemoveTime(DateTime date)
+	{
+		return new DateTime(date.Year, date.Month, date.Day);
 	}
 }
