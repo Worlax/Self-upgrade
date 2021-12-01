@@ -6,6 +6,7 @@ public class HeaderContent : MonoBehaviour
 {
 #pragma warning disable 0649
 
+	[SerializeField] RectTransform content;
 	[SerializeField] Text dateInText;
 
 #pragma warning restore 0649
@@ -14,7 +15,12 @@ public class HeaderContent : MonoBehaviour
 	{
 		ClearContent();
 		ShowDateInText(date, type);
-		return ContentPrefabs.Instance.GetItem(type, date, transform);
+		return ContentPrefabs.Instance.GetItem(type, date, content);
+	}
+
+	public CalendarItem GetItem()
+	{
+		return content.GetComponentInChildren<CalendarItem>();
 	}
 
 	void ShowDateInText(DateTime date, CalendarItemType type)
@@ -37,7 +43,7 @@ public class HeaderContent : MonoBehaviour
 
 	void ClearContent()
 	{
-		foreach(Transform obj in transform)
+		foreach(Transform obj in content.transform)
 		{
 			Destroy(obj.gameObject);
 		}

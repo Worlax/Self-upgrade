@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,8 +26,12 @@ public class DayContent : MonoBehaviour
 
 #pragma warning restore 0649
 
+	DateTime currentDate;
+
 	public List<UpgradeItem> FillContent(DateTime date)
 	{
+		ClearContent();
+		currentDate = date;
 		List<UpgradeItem> createdItems = new List<UpgradeItem>();
 
 		// Filling 3 days befor, 1 current day and 3 days after with content
@@ -46,10 +51,11 @@ public class DayContent : MonoBehaviour
 	{
 		dayName.text = date.Day.ToString();
 		List<UpgradeItem> createdItems = new List<UpgradeItem>();
+		List<Upgrade> activeUpgrades = UpgradeDropdown.Instance.GetActive();
 
-		List<Upgrade> checkers = Upgrade.GetAllUpgradesOfAType(UpgradeType.Checker);
-		List<Upgrade> multiCheckers = Upgrade.GetAllUpgradesOfAType(UpgradeType.MultiChecker);
-		List<Upgrade> timers = Upgrade.GetAllUpgradesOfAType(UpgradeType.Timer);
+		List<Upgrade> checkers = activeUpgrades.Where(obj => obj.Type == UpgradeType.Checker).ToList();
+		List<Upgrade> multiCheckers = activeUpgrades.Where(obj => obj.Type == UpgradeType.MultiChecker).ToList();
+		List<Upgrade> timers = activeUpgrades.Where(obj => obj.Type == UpgradeType.Timer).ToList();
 
 		createdItems.AddRange(CreateItems(checkers, date, parent));
 		createdItems.AddRange(CreateItems(multiCheckers, date, parent));
@@ -112,5 +118,25 @@ public class DayContent : MonoBehaviour
 		{
 			Destroy(obj.gameObject);
 		}
+	}
+
+	// Events
+	void ActiveUpgradesChanged(List<Upgrade> upgrades)
+	{
+		if (currentDate != null)
+		{
+			FillContent(currentDate);
+		}
+	}
+
+	// Unity
+	private void OnEnable()
+	{
+		UpgradeDropdown.Instance.OnActiveUpgradesChanged += ActiveUpgradesChanged;
+	}
+
+	private void OnDisable()
+	{
+		UpgradeDropdown.Instance.OnActiveUpgradesChanged += ActiveUpgradesChanged;
 	}
 }

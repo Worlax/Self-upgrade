@@ -35,9 +35,9 @@ public class AutoSave : MonoBehaviour
 	void StopwatchStop()
 	{
 		Save();
-	}	
-	//
+	}
 
+	// Unity
 	private void OnEnable()
 	{
 		Upgrade.OnNewUpgradeCreated += NewUpgradeCreated;

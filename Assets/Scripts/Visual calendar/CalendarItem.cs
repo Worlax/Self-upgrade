@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -65,7 +66,7 @@ public class CalendarItem : MonoBehaviour
 		}
 		else
 		{
-			grayOut.alpha = 1f;
+			grayOut.alpha = 0f;
 		}
 	}
 
@@ -80,14 +81,14 @@ public class CalendarItem : MonoBehaviour
 		}
 		else
 		{
-			highlight.alpha = 1f;
+			highlight.alpha = 0f;
 			progressFill.color = normalColor;
 		}
 	}
 
 	void UpdateHoursVisual(DateTime date)
 	{
-		Upgrade activeUpgrade = UpgradeDropdown.Instance.GetActive();
+		List<Upgrade> activeUpgrades = UpgradeDropdown.Instance.GetActive();
 		int secondsInMyDate = 0;
 
 		switch (Type)
@@ -96,7 +97,10 @@ public class CalendarItem : MonoBehaviour
 				DateTime startOfTheYear = new DateTime(date.Year, 1, 1);
 				DateTime endOfTheYear = new DateTime(date.Year, 12, 31);
 
-				secondsInMyDate = activeUpgrade.Calendar.GetValueInDiapason(startOfTheYear, endOfTheYear);
+				foreach (Upgrade upgrade in activeUpgrades)
+				{
+					secondsInMyDate = upgrade.Calendar.GetValueInDiapason(startOfTheYear, endOfTheYear);
+				}
 				break;
 
 			case CalendarItemType.Month:
@@ -104,11 +108,17 @@ public class CalendarItem : MonoBehaviour
 				DateTime startOfTheMonth = new DateTime(date.Year, date.Month, 1);
 				DateTime endOfTheMonth = new DateTime(date.Year, date.Month, daysInMonth);
 
-				secondsInMyDate = activeUpgrade.Calendar.GetValueInDiapason(startOfTheMonth, endOfTheMonth);
+				foreach (Upgrade upgrade in activeUpgrades)
+				{
+					secondsInMyDate = upgrade.Calendar.GetValueInDiapason(startOfTheMonth, endOfTheMonth);
+				}
 				break;
 
 			case CalendarItemType.Day:
-				secondsInMyDate = activeUpgrade.Calendar.GetValue(date);
+				foreach (Upgrade upgrade in activeUpgrades)
+				{
+					secondsInMyDate = upgrade.Calendar.GetValue(date);
+				}
 				break;
 		}
 
@@ -121,7 +131,7 @@ public class CalendarItem : MonoBehaviour
 		OnClicked?.Invoke(this);
 	}
 
-	void ActiveUpgradeChanged(Upgrade upgrade)
+	void ActiveUpgradesChanged(List<Upgrade> upgrade)
 	{
 		UpdateHoursVisual(Date);
 	}
@@ -131,13 +141,13 @@ public class CalendarItem : MonoBehaviour
 	{
 		selfButton?.onClick.AddListener(SelfButtonClicked);
 
-		UpgradeDropdown.Instance.OnActiveUpgradeChanged += ActiveUpgradeChanged;
+		UpgradeDropdown.Instance.OnActiveUpgradesChanged += ActiveUpgradesChanged;
 	}
 
 	private void OnDisable()
 	{
 		selfButton?.onClick.RemoveListener(SelfButtonClicked);
 
-		UpgradeDropdown.Instance.OnActiveUpgradeChanged -= ActiveUpgradeChanged;
+		UpgradeDropdown.Instance.OnActiveUpgradesChanged -= ActiveUpgradesChanged;
 	}
 }

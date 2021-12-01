@@ -1,0 +1,36 @@
+{
+  "Upgrades": [
+    {
+      "Name": "Autocreated",
+      "Type": 0,
+      "Calendar": {
+        "Days": {
+          "2021-12-02T00:00:00": 3
+        }
+      }
+    },
+    {
+      "Name": "Timer1",
+      "Type": 0,
+      "Calendar": {
+        "Days": {
+          "2021-12-02T00:00:00": 3
+        }
+      }
+    },
+    {
+      "Name": "Checker1",
+      "Type": 1,
+      "Calendar": {
+        "Days": {}
+      }
+    },
+    {
+      "Name": "Mchecker1",
+      "Type": 2,
+      "Calendar": {
+        "Days": {}
+      }
+    }
+  ]
+}

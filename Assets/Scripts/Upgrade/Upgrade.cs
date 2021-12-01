@@ -50,11 +50,6 @@ public class Upgrade
 		AllUpgrades = upgrades;
 	}
 
-	public static List<Upgrade> GetAllUpgradesOfAType(UpgradeType type)
-	{
-		return AllUpgrades.Where(obj => obj.Type == type).ToList();
-	}
-
 	public static bool UpgradeAlreadyExists(string name)
 	{
 		return AllUpgrades.Any(x => x.Name == name);

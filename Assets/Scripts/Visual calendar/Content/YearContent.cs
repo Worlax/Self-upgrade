@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class YearContent : MonoBehaviour
 {
+#pragma warning disable 0649
+
+	[SerializeField] RectTransform content;
+
+#pragma warning restore 0649
+
 	public List<CalendarItem> FillContent(DateTime date)
 	{
 		ClearContent();
@@ -13,7 +19,7 @@ public class YearContent : MonoBehaviour
 		for (int i = 1; i <= 12; ++i)
 		{
 			DateTime monthDate = new DateTime(date.Year, i, 1);
-			CalendarItem item = ContentPrefabs.Instance.GetItem(CalendarItemType.Month, monthDate, transform);
+			CalendarItem item = ContentPrefabs.Instance.GetItem(CalendarItemType.Month, monthDate, content);
 			HighlightIfCurrent(item);
 			createdItems.Add(item);
 		}
@@ -32,7 +38,7 @@ public class YearContent : MonoBehaviour
 
 	void ClearContent()
 	{
-		foreach (Transform obj in transform)
+		foreach (Transform obj in content.transform)
 		{
 			Destroy(obj.gameObject);
 		}

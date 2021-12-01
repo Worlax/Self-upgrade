@@ -1,0 +1,13 @@
+{
+  "Upgrades": [
+    {
+      "Name": "Autocreated",
+      "Type": 0,
+      "Calendar": {
+        "Days": {
+          "2021-12-02T00:00:00": 2
+        }
+      }
+    }
+  ]
+}

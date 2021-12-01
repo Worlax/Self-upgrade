@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,7 +25,6 @@ public class Stopwatch : MonoBehaviour
  
 #pragma warning restore 0649
 
-	Upgrade upgrade;
 	bool timerIsRunning;
 	float nextUpdateSecond;
 
@@ -35,26 +35,24 @@ public class Stopwatch : MonoBehaviour
 	{
 		if (timerIsRunning && UnityEngine.Time.time > nextUpdateSecond)
 		{
-			upgrade.Calendar.ChangeTodayValueBy(1);
+			Upgrade activeUpgrade = UpgradeDropdown.Instance.GetActive()[0];
+
+			activeUpgrade.Calendar.ChangeTodayValueBy(1);
 			UpdateDisplay();
 
 			nextUpdateSecond += 1;
 		}
 	}
 
-	public void ChangeActiveUpgrade(Upgrade upgrade)
-	{
-		this.upgrade = upgrade;
-		UpdateDisplay();
-	}
-
 	void UpdateDisplay()
 	{
-		if (upgrade != null)
-		{
-			upgradeName.text = upgrade.Name;
+		Upgrade activeUpgrade = UpgradeDropdown.Instance.GetActive()[0];
 
-			int sec = upgrade.Calendar.GetTodayValue();
+		if (activeUpgrade != null)
+		{
+			upgradeName.text = activeUpgrade.Name;
+
+			int sec = activeUpgrade.Calendar.GetTodayValue();
 
 			seconds.text = FormatNumberForDisplay(TimeConverter.Seconds(sec));
 			minutes.text = FormatNumberForDisplay(TimeConverter.Minutes(sec));
@@ -97,16 +95,19 @@ public class Stopwatch : MonoBehaviour
 
 	void GotDistracted(int minutes)
 	{
-		upgrade.Calendar.ChangeTodayValueBy(-minutes * 60);
+		Upgrade activeUpgrade = UpgradeDropdown.Instance.GetActive()[0];
+
+		activeUpgrade.Calendar.ChangeTodayValueBy(-minutes * 60);
 		UpdateDisplay();
 
 		disappearingText.Play("-" + minutes);
 	}
 
 	// Events
-	void ActiveUpgradeChanged(Upgrade upgrade)
+	void ActiveUpgradesChanged(List<Upgrade> upgrades)
 	{
-		ChangeActiveUpgrade(upgrade);
+		StopStopwatch();
+		UpdateDisplay();
 	}
 
 	void GotDistractedBy15()
@@ -124,13 +125,13 @@ public class Stopwatch : MonoBehaviour
 		int distractedBy = Int32.Parse(gotDistractedInputField.text);
 		GotDistracted(distractedBy);
 	}
-	//
 
+	// Unity
 	private void OnEnable()
 	{
-		ChangeActiveUpgrade(UpgradeDropdown.Instance.GetActive());
+		UpdateDisplay();
 
-		UpgradeDropdown.Instance.OnActiveUpgradeChanged += ActiveUpgradeChanged;
+		UpgradeDropdown.Instance.OnActiveUpgradesChanged += ActiveUpgradesChanged;
 
 		start.onClick.AddListener(StartStopwatch);
 		stop.onClick.AddListener(StopStopwatch);
@@ -143,7 +144,7 @@ public class Stopwatch : MonoBehaviour
 	{
 		StopStopwatch();
 
-		UpgradeDropdown.Instance.OnActiveUpgradeChanged -= ActiveUpgradeChanged;
+		UpgradeDropdown.Instance.OnActiveUpgradesChanged -= ActiveUpgradesChanged;
 
 		start.onClick.RemoveListener(StartStopwatch);
 		stop.onClick.RemoveListener(StopStopwatch);

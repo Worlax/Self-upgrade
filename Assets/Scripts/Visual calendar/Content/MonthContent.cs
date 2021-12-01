@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class MonthContent : MonoBehaviour
 {
+#pragma warning disable 0649
+
+	[SerializeField] RectTransform content;
+
+#pragma warning restore 0649
+
 	const int MAX_ITEMS = 42;
 
 	public List<CalendarItem> FillContent(DateTime date)
@@ -12,19 +18,23 @@ public class MonthContent : MonoBehaviour
 		List<CalendarItem> createdItems = new List<CalendarItem>();
 
 		// Previous month
-		createdItems.AddRange(CreateDaysFromPreviousMonth(date));
+		List<CalendarItem> previousMonth = CreateDaysFromPreviousMonth(date);
+		GrayOutItems(previousMonth);
+		createdItems.AddRange(previousMonth);
 
 		// This month
 		for (int i = 1; i <= DateTime.DaysInMonth(date.Year, date.Month); ++i)
 		{
 			DateTime dayDate = new DateTime(date.Year, date.Month, i);
-			CalendarItem item = ContentPrefabs.Instance.GetItem(CalendarItemType.Day, dayDate, transform);
+			CalendarItem item = ContentPrefabs.Instance.GetItem(CalendarItemType.Day, dayDate, content);
 			HighlightIfCurrent(item);
 			createdItems.Add(item);
 		}
 
 		// Next month
-		createdItems.AddRange(CreateDaysFromNextMonth(date));
+		List<CalendarItem> nextMonth = CreateDaysFromNextMonth(date);
+		GrayOutItems(nextMonth);
+		createdItems.AddRange(nextMonth);
 
 		return createdItems;
 	}
@@ -39,7 +49,7 @@ public class MonthContent : MonoBehaviour
 		// adding days from previous month to the content until content starts from monday
 		if (firstDayOfGivenMonth.DayOfWeek != DayOfWeek.Monday)
 		{
-			DateTime previousMonth = date.AddDays(-1);
+			DateTime previousMonth = firstDayOfGivenMonth.AddDays(-1);
 
 			// Trying to find last monday in previous month
 			while (previousMonth.DayOfWeek != DayOfWeek.Monday)
@@ -50,7 +60,7 @@ public class MonthContent : MonoBehaviour
 			// Adding all days (from the last month's monday) to the content
 			while (previousMonth.Day != 1)
 			{
-				CalendarItem item = ContentPrefabs.Instance.GetItem(CalendarItemType.Day, previousMonth, transform);
+				CalendarItem item = ContentPrefabs.Instance.GetItem(CalendarItemType.Day, previousMonth, content);
 				createdItems.Add(item);
 				previousMonth = previousMonth.AddDays(1);
 			}
@@ -82,7 +92,7 @@ public class MonthContent : MonoBehaviour
 
 		while (itemsAlreadyCreated < MAX_ITEMS)
 		{
-			CalendarItem item = ContentPrefabs.Instance.GetItem(CalendarItemType.Day, nextMonth, transform);
+			CalendarItem item = ContentPrefabs.Instance.GetItem(CalendarItemType.Day, nextMonth, content);
 			HighlightIfCurrent(item);
 			createdItems.Add(item);
 			nextMonth = nextMonth.AddDays(1);
@@ -102,9 +112,17 @@ public class MonthContent : MonoBehaviour
 		}
 	}
 
+	void GrayOutItems(List<CalendarItem> items)
+	{
+		foreach(CalendarItem item in items)
+		{
+			item.GrayOut(true);
+		}
+	}
+
 	void ClearContent()
 	{
-		foreach (Transform obj in transform)
+		foreach (Transform obj in content.transform)
 		{
 			Destroy(obj.gameObject);
 		}
