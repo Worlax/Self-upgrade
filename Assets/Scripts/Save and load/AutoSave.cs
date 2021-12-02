@@ -23,7 +23,7 @@ public class AutoSave : MonoBehaviour
 
 	void Save()
 	{
-		JsonSerializer.SaveProgress();
+		JsonSerializer.SaveData();
 	}
 
 	// Events

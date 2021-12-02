@@ -35,7 +35,7 @@ public class TestWindow : MonoBehaviour
 
 	void Calendar(string input)
 	{
-		VisualCalendar calendar = FindObjectOfType<VisualCalendar>();
+		UICalendar calendar = FindObjectOfType<UICalendar>();
 
 		calendar.OpenYearTab(DateTime.Today);
 	}

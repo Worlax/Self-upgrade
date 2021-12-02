@@ -399,7 +399,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3594786768389210425}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8da33785ac6ca546a846b4b412fe0e8, type: 3}
+  m_Script: {fileID: 11500000, guid: e2b67c8c825740b4fb450654a8f7b213, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dateText: {fileID: 3594786768912365057}
@@ -407,7 +407,7 @@ MonoBehaviour:
   selfButton: {fileID: 6471196141446634839}
   grayOut: {fileID: 1574899886955211460}
   highlight: {fileID: 4268433844119993933}
-  highlightColor: {r: 0.79607844, g: 0.42352942, b: 0.26666668, a: 1}
+  highlightColor: {r: 0.74509805, g: 0.42745098, b: 0.27058825, a: 1}
   progressFill: {fileID: 3594786769745168982}
 --- !u!1 &3594786768858214102
 GameObject:
