@@ -37,7 +37,7 @@ public class Stopwatch : MonoBehaviour
 		{
 			Upgrade activeUpgrade = UpgradesList.Instance.GetActive()[0];
 
-			activeUpgrade.Calendar.ChangeTodayValueBy(1);
+			activeUpgrade.Calendar.ChangeValueBy(DateTime.Today, 1);
 			UpdateDisplay();
 
 			nextUpdateSecond += 1;
@@ -52,7 +52,7 @@ public class Stopwatch : MonoBehaviour
 		{
 			upgradeName.text = activeUpgrade.Name;
 
-			int sec = activeUpgrade.Calendar.GetTodayValue();
+			int sec = activeUpgrade.Calendar.GetValue(DateTime.Today);
 
 			seconds.text = FormatNumberForDisplay(TimeConverter.Seconds(sec));
 			minutes.text = FormatNumberForDisplay(TimeConverter.Minutes(sec));
@@ -97,7 +97,7 @@ public class Stopwatch : MonoBehaviour
 	{
 		Upgrade activeUpgrade = UpgradesList.Instance.GetActive()[0];
 
-		activeUpgrade.Calendar.ChangeTodayValueBy(-minutes * 60);
+		activeUpgrade.Calendar.ChangeValueBy(DateTime.Today, -minutes * 60);
 		UpdateDisplay();
 
 		disappearingText.Play("-" + minutes);

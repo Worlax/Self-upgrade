@@ -376,7 +376,7 @@ GameObject:
   - component: {fileID: 4611045910112333618}
   - component: {fileID: 4611045910112333621}
   m_Layer: 0
-  m_Name: Hours
+  m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -756,8 +756,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2b67c8c825740b4fb450654a8f7b213, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dateText: {fileID: 4611045910112333618}
-  hoursText: {fileID: 4611045910112333618}
+  dateText: {fileID: 4611045911343765142}
+  timeText: {fileID: 4611045910112333618}
   selfButton: {fileID: 3636108650911800033}
   grayOut: {fileID: 5377319143156045543}
   highlight: {fileID: 8601774250848580588}

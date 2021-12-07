@@ -26,7 +26,7 @@ public class MonthTab : MonoBehaviour
 		for (int i = 1; i <= DateTime.DaysInMonth(date.Year, date.Month); ++i)
 		{
 			DateTime dayDate = new DateTime(date.Year, date.Month, i);
-			UICalendarItem item = UICalendarItemConstructor.Instance.CreateItem(UICalendarItemType.Day, dayDate, content);
+			UICalendarItem item = UICalendarItemConstructor.Instance.CreateCalendarItem(UICalendarItemType.Day, dayDate, content);
 			HighlightIfCurrent(item);
 			createdItems.Add(item);
 		}
@@ -60,7 +60,7 @@ public class MonthTab : MonoBehaviour
 			// Adding all days (from the last month's monday) to the content
 			while (previousMonth.Day != 1)
 			{
-				UICalendarItem item = UICalendarItemConstructor.Instance.CreateItem(UICalendarItemType.Day, previousMonth, content);
+				UICalendarItem item = UICalendarItemConstructor.Instance.CreateCalendarItem(UICalendarItemType.Day, previousMonth, content);
 				createdItems.Add(item);
 				previousMonth = previousMonth.AddDays(1);
 			}
@@ -92,7 +92,7 @@ public class MonthTab : MonoBehaviour
 
 		while (itemsAlreadyCreated < MAX_ITEMS)
 		{
-			UICalendarItem item = UICalendarItemConstructor.Instance.CreateItem(UICalendarItemType.Day, nextMonth, content);
+			UICalendarItem item = UICalendarItemConstructor.Instance.CreateCalendarItem(UICalendarItemType.Day, nextMonth, content);
 			HighlightIfCurrent(item);
 			createdItems.Add(item);
 			nextMonth = nextMonth.AddDays(1);

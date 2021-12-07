@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dateText: {fileID: 3594786768912365057}
-  hoursText: {fileID: 3594786769134053814}
+  timeText: {fileID: 3594786769134053814}
   selfButton: {fileID: 6471196141446634839}
   grayOut: {fileID: 1574899886955211460}
   highlight: {fileID: 4268433844119993933}
@@ -577,7 +577,7 @@ GameObject:
   - component: {fileID: 3594786769134053814}
   - component: {fileID: 3594786769134053815}
   m_Layer: 0
-  m_Name: Hours
+  m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

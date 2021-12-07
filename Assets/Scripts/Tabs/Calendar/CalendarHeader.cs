@@ -15,7 +15,7 @@ public class CalendarHeader : MonoBehaviour
 	{
 		ClearContent();
 		ShowDateInText(date, type);
-		return UICalendarItemConstructor.Instance.CreateItem(type, date, content);
+		return UICalendarItemConstructor.Instance.CreateCalendarItem(type, date, content);
 	}
 
 	public UICalendarItem GetItem()

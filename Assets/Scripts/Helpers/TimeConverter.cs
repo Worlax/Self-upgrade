@@ -22,10 +22,10 @@ public static class TimeConverter
 			if (separationIsNeeded)
 			{
 				time += " ";
-				separationIsNeeded = false;
 			}
 
 			time += m + minutesAbbr;
+			separationIsNeeded = true;
 		}
 
 		if (s > 0 && showSeconds)
@@ -33,10 +33,9 @@ public static class TimeConverter
 			if (separationIsNeeded)
 			{
 				time += " ";
-				separationIsNeeded = false;
 			}
 
-			time += " " + s + secondsAbbr;
+			time += s + secondsAbbr;
 		}
 
 		return time;
@@ -46,14 +45,14 @@ public static class TimeConverter
 	{
 		return seconds - (Minutes(seconds) * 60 + Hours(seconds) * 3600);
 	}
-	
+
 	public static int Minutes(int seconds)
-	{ 
-		return seconds / 60 - Hours(seconds) * 60; 
+	{
+		return seconds / 60 - Hours(seconds) * 60;
 	}
 
 	public static int Hours(int seconds)
-	{ 
+	{
 		return seconds / 60 / 60;
 	}
 }

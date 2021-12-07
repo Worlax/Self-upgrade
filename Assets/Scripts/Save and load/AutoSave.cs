@@ -23,11 +23,16 @@ public class AutoSave : MonoBehaviour
 
 	void Save()
 	{
-		JsonSerializer.SaveData();
+		GeneralFileSystem.SaveData();
 	}
 
 	// Events
 	void NewUpgradeCreated(Upgrade upgrade)
+	{
+		Save();
+	}
+
+	void UpgradeDeleted(string name)
 	{
 		Save();
 	}
@@ -41,12 +46,14 @@ public class AutoSave : MonoBehaviour
 	private void OnEnable()
 	{
 		Upgrade.OnNewUpgradeCreated += NewUpgradeCreated;
+		Upgrade.OnUpgradeDeleted += UpgradeDeleted;
 		Stopwatch.OnStopwatchStop += StopwatchStop;
 	}
 
 	private void OnDisable()
 	{
 		Upgrade.OnNewUpgradeCreated -= NewUpgradeCreated;
+		Upgrade.OnUpgradeDeleted -= UpgradeDeleted;
 		Stopwatch.OnStopwatchStop -= StopwatchStop;
 	}
 }

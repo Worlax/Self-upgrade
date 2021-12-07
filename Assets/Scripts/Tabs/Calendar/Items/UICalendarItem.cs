@@ -13,7 +13,7 @@ public class UICalendarItem : MonoBehaviour
 #pragma warning disable 0649
 
 	[SerializeField] Text dateText;
-	[SerializeField] Text hoursText;
+	[SerializeField] Text timeText;
 
 	[SerializeField] Button selfButton;
 
@@ -122,7 +122,7 @@ public class UICalendarItem : MonoBehaviour
 				break;
 		}
 
-		hoursText.text = TimeConverter.TimeString(secondsInMyDate);
+		timeText.text = TimeConverter.TimeString(secondsInMyDate);
 	}
 
 	// Events

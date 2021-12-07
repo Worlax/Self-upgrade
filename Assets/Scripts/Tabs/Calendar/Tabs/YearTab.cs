@@ -19,7 +19,7 @@ public class YearTab : MonoBehaviour
 		for (int i = 1; i <= 12; ++i)
 		{
 			DateTime monthDate = new DateTime(date.Year, i, 1);
-			UICalendarItem item = UICalendarItemConstructor.Instance.CreateItem(UICalendarItemType.Month, monthDate, content);
+			UICalendarItem item = UICalendarItemConstructor.Instance.CreateCalendarItem(UICalendarItemType.Month, monthDate, content);
 			HighlightIfCurrent(item);
 			createdItems.Add(item);
 		}

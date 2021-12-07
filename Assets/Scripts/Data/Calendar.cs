@@ -1,38 +1,31 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 
 public class Calendar
 {
-	[JsonProperty] Dictionary<DateTime, int> Days = new Dictionary<DateTime, int>();
+	[JsonProperty] List<Day> Days = new List<Day>();
+	[JsonProperty] public List<Mission> ActiveMissions { get; private set; } = new List<Mission>();
 
 	public void ChangeValueBy(DateTime date, int value)
 	{
-		date = RemoveTime(date);
-
 		CreateDayIfDosentExists(date);
+		Day day = GetDay(date);
+		day.ProgressValue += value;
 
-		Days[date] += value;
-		
-		if (Days[date] < 0)
+		if (day.ProgressValue < 0)
 		{
-			Days[date] = 0;
+			day.ProgressValue = 0;
 		}
-	}
-
-	public void ChangeTodayValueBy(int value)
-	{
-		ChangeValueBy(DateTime.Today, value);
 	}
 
 	public int GetValue(DateTime date)
 	{
-		date = RemoveTime(date);
-
-		if (Days.ContainsKey(date))
+		if (GetDay(date) != null)
 		{
-			return Days[date];
+			return GetDay(date).ProgressValue;
 		}
 		else
 		{
@@ -40,15 +33,10 @@ public class Calendar
 		}		
 	}
 
-	public int GetTodayValue()
-	{
-		return GetValue(DateTime.Today);
-	}
-
 	public int GetValueInDiapason(DateTime dateStart, DateTime dateEnd)
 	{
-		dateStart = RemoveTime(dateStart);
-		dateEnd = RemoveTime(dateEnd);
+		dateStart = RemoveTimeFromDate(dateStart);
+		dateEnd = RemoveTimeFromDate(dateEnd);
 
 		int value = 0;
 
@@ -62,17 +50,45 @@ public class Calendar
 		return value;
 	}
 
+	public int GetTotalValue()
+	{
+		int totalValue = 0;
+		foreach (Day day in Days)
+		{
+			totalValue += day.ProgressValue;
+		}
+
+		return totalValue;
+	}
+
+	public void AddMission(Mission mission)
+	{
+		ActiveMissions.Add(mission);
+	}
+
+	public List<Mission> GetAllMisssionsByDayOfTheWeek(DayOfWeek dayOfWeek)
+	{
+		return ActiveMissions.Where(obj => obj.DayOfWeek == dayOfWeek).ToList();
+	}
+
 	void CreateDayIfDosentExists(DateTime date)
 	{
-		date = RemoveTime(date);
+		date = RemoveTimeFromDate(date);
 
-		if (!Days.ContainsKey(date))
+		if (GetDay(date) == null)
 		{
-			Days[date] = 0;
+			Days.Add(new Day(date));
 		}
 	}
 
-	DateTime RemoveTime(DateTime date)
+	Day GetDay(DateTime date)
+	{
+		date = RemoveTimeFromDate(date);
+
+		return Days.Find(obj => obj.Date == date);
+	}
+
+	DateTime RemoveTimeFromDate(DateTime date)
 	{
 		return new DateTime(date.Year, date.Month, date.Day);
 	}

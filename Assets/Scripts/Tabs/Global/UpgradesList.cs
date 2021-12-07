@@ -23,16 +23,16 @@ public class UpgradesList : Singleton<UpgradesList>
 	HashSet<UpgradeType> avaibleTypesAsAll = new HashSet<UpgradeType>();
 	bool allGlobal = true;
 
-	public void Init()
-	{
-		foreach(UpgradeType type in Enum.GetValues(typeof(UpgradeType)))
-		{
-			avaibleTypes.Add(type);
-			avaibleTypesAsAll.Add(type);
-		}
+	//public void Init()
+	//{
+	//	foreach(UpgradeType type in Enum.GetValues(typeof(UpgradeType)))
+	//	{
+	//		avaibleTypes.Add(type);
+	//		avaibleTypesAsAll.Add(type);
+	//	}
 
-		UpdateDisplay();
-	}
+	//	UpdateDisplay();
+	//}
 
 	public List<Upgrade> GetActive()
 	{
@@ -148,6 +148,11 @@ public class UpgradesList : Singleton<UpgradesList>
 		UpdateDisplay();
 	}
 
+	void UpgradeDeleted(string name)
+	{
+		UpdateDisplay();
+	}
+
 	void DropdownActiveItemChanged(int value)
 	{
 		OnActiveUpgradesChanged?.Invoke(GetActive());
@@ -158,12 +163,14 @@ public class UpgradesList : Singleton<UpgradesList>
 	{
 		UpdateDisplay();
 		Upgrade.OnNewUpgradeCreated += NewUpdateCreated;
+		Upgrade.OnUpgradeDeleted += UpgradeDeleted;
 		dropdown.onValueChanged.AddListener(DropdownActiveItemChanged);
 	}
 
 	private void OnDisable()
 	{
 		Upgrade.OnNewUpgradeCreated -= NewUpdateCreated;
+		Upgrade.OnUpgradeDeleted -= UpgradeDeleted;
 		dropdown.onValueChanged.RemoveListener(DropdownActiveItemChanged);
 	}
 }

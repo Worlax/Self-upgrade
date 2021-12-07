@@ -22,7 +22,7 @@ public class UICalendar : MonoBehaviour
 	// Open tab
 	public void OpenYearTab(DateTime date)
 	{
-		EnableOneTab(yearTab.transform);
+		DisableAllTabsButOne(yearTab.transform);
 
 		header.FillContent(UICalendarItemType.Year, date);
 		List<UICalendarItem> createdItems = yearTab.FillContent(date);
@@ -34,7 +34,7 @@ public class UICalendar : MonoBehaviour
 
 	public void OpenMonthTab(DateTime date)
 	{
-		EnableOneTab(monthTab.transform);
+		DisableAllTabsButOne(monthTab.transform);
 
 		header.FillContent(UICalendarItemType.Month, date);
 		List<UICalendarItem> createdItems = monthTab.FillContent(date);
@@ -46,26 +46,37 @@ public class UICalendar : MonoBehaviour
 
 	public void OpenDayTab(DateTime date)
 	{
-		EnableOneTab(dayTab.transform);
+		DisableAllTabsButOne(dayTab.transform);
 
 		header.FillContent(UICalendarItemType.Day, date);
 		dayTab.FillContent(date);
 	}
 
-	void EnableOneTab(Transform tab)
+	void DisableAllTabsButOne(Transform tab)
 	{
-		// Disable all tabs
-		yearTab.gameObject.SetActive(false);
-		monthTab.gameObject.SetActive(false);
-		dayTab.gameObject.SetActive(false);
+		if (yearTab != tab) yearTab.gameObject.SetActive(false);
+		if (monthTab != tab) monthTab.gameObject.SetActive(false);
+		if (dayTab != tab) dayTab.gameObject.SetActive(false);
 
-		// Enable one tab
 		tab.gameObject.SetActive(true);
 	}
 
 	void UpdateVisual()
 	{
-		SwitchDate(0);
+		if (EveryTabClosed())
+		{
+			OpenMonthTab(DateTime.Today);
+		}
+		else
+		{
+			SwitchDate(0);
+		}
+	}
+
+	bool EveryTabClosed()
+	{
+		return yearTab.gameObject.activeSelf == false && monthTab.gameObject.activeSelf == false
+			&& dayTab.gameObject.activeSelf == false;
 	}
 
 	// Events

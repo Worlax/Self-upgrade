@@ -5,31 +5,31 @@ public class UICalendarItemConstructor : Singleton<UICalendarItemConstructor>
 {
 #pragma warning disable 0649
 
-	[field: SerializeField] public UICalendarItem YearItem { get; private set; }
-	[field: SerializeField] public UICalendarItem MonthItem { get; private set; }
-	[field: SerializeField] public UICalendarItem DayItem { get; private set; }
+	[field: SerializeField] public UICalendarItem YearItemPrefab { get; private set; }
+	[field: SerializeField] public UICalendarItem MonthItemPrefab { get; private set; }
+	[field: SerializeField] public UICalendarItem DayItemPrefab { get; private set; }
 
-	[SerializeField] UICalendarUpgradeItem upgradeItem;
-	[SerializeField] UICalendarUpgradeItem upgradeItemWithValue;
+	[SerializeField] UICalendarUpgradeItem upgradeItemPrefab;
+	[SerializeField] UICalendarUpgradeItem upgradeItemWithValuePrefab;
 
 #pragma warning restore 0649
 
-	public UICalendarItem CreateItem(UICalendarItemType type, DateTime date, Transform parent)
+	public UICalendarItem CreateCalendarItem(UICalendarItemType type, DateTime date, Transform parent)
 	{
 		UICalendarItem item = null;
 
 		switch (type)
 		{
 			case UICalendarItemType.Year:
-				item = Instantiate(YearItem);
+				item = Instantiate(YearItemPrefab);
 				break;
 
 			case UICalendarItemType.Month:
-				item = Instantiate(MonthItem);
+				item = Instantiate(MonthItemPrefab);
 				break;
 
 			case UICalendarItemType.Day:
-				item = Instantiate(DayItem);
+				item = Instantiate(DayItemPrefab);
 				break;
 		}
 
@@ -47,11 +47,11 @@ public class UICalendarItemConstructor : Singleton<UICalendarItemConstructor>
 		{
 			case UpgradeType.Timer:
 			case UpgradeType.MultiChecker:
-				item = Instantiate(upgradeItemWithValue);
+				item = Instantiate(upgradeItemWithValuePrefab);
 				break;
 
 			case UpgradeType.Checker:
-				item = Instantiate(upgradeItem);
+				item = Instantiate(upgradeItemPrefab);
 				break;
 		}
 

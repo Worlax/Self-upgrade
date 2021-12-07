@@ -6,10 +6,10 @@ using UnityEngine;
 
 public enum UpgradeType
 {
-	Timer, Checker, MultiChecker
+	Checker, MultiChecker, Timer
 }
 
-public class Upgrade
+public class Upgrade : IComparable<Upgrade>
 {
 	[JsonProperty] public string Name { get; private set; }
 	[JsonProperty] public UpgradeType Type { get; private set; }
@@ -20,10 +20,11 @@ public class Upgrade
 	private Upgrade() { }
 
 	public static event Action<Upgrade> OnNewUpgradeCreated;
+	public static event Action<string> OnUpgradeDeleted;
 
 	static Upgrade()
 	{
-		JsonSerializer.OnLoadingBegins += LoadBegins;
+		GeneralFileSystem.OnLoadingBegins += LoadBegins;
 	}
 
 	public static Upgrade CreateUpgrade(string name, UpgradeType type)
@@ -39,7 +40,7 @@ public class Upgrade
 			};
 
 			AllUpgrades.Add(upgrade);
-
+			AllUpgrades.Sort();
 			OnNewUpgradeCreated?.Invoke(upgrade);
 
 			return upgrade;
@@ -48,9 +49,23 @@ public class Upgrade
 		{
 			return null;
 		}
+
+		
 	}
 
-	public static bool UpgradeAlreadyExists(string name)
+	public static void DeleteUpgrade(string name)
+	{
+		string formatedName = FormatName(name);
+		Upgrade upgradeToDelete = AllUpgrades.Find(obj => obj.Name == formatedName);
+
+		if (upgradeToDelete != null)
+		{
+			AllUpgrades.Remove(upgradeToDelete);
+			OnUpgradeDeleted?.Invoke(formatedName);
+		}
+	}
+
+	static bool UpgradeAlreadyExists(string name)
 	{
 		return AllUpgrades.Any(x => x.Name == name);
 	}
@@ -71,9 +86,17 @@ public class Upgrade
 		}
 	}
 
+	public int CompareTo(Upgrade other)
+	{
+		if (other == null) return 1;
+
+		return Type.CompareTo(other.Type);
+	}
+
 	// Events
 	static void LoadBegins(AppData data)
 	{
 		AllUpgrades = data.Upgrades;
+		AllUpgrades.Sort();
 	}
 }
