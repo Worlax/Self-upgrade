@@ -20,6 +20,9 @@ public class Schedule : MonoBehaviour
 
 	public bool ShowBreakTime = true;
 
+	public static event Action OnEnabled;
+	public static event Action OnDisabled;
+
 	List<ScheduleItem> FillContent()
 	{
 		ClearContent();
@@ -38,43 +41,7 @@ public class Schedule : MonoBehaviour
 
 	List<ScheduleItem> FillOneDay(DayOfWeek dayOfWeek, RectTransform parent)
 	{
-		List<ScheduleItem> createdItems = new List<ScheduleItem>();
-
-		foreach (Upgrade upgrade in Upgrade.AllUpgrades)
-		{
-			List<Mission> missionsToDisplay = upgrade.Calendar.ActiveMissions.Where(obj => obj.DayOfWeek == dayOfWeek).ToList();
-
-			foreach (Mission mission in missionsToDisplay)
-			{
-				ScheduleItemType type = ScheduleItemType.upgrade;
-
-				switch (upgrade.Type)
-				{
-					case UpgradeType.Timer:
-						if (ShowBreakTime)
-						{
-							type = ScheduleItemType.upgradeWithTimeAndBreak;
-						}
-						else
-						{
-							type = ScheduleItemType.upgradeWithValue;
-						}
-						break;
-
-					case UpgradeType.Checker:
-						type = ScheduleItemType.upgrade;
-						break;
-
-					case UpgradeType.MultiChecker:
-						type = ScheduleItemType.upgradeWithValue;
-						break;
-				}
-
-				createdItems.Add(ScheduleItemConstructor.Instance.CreateItem(upgrade, mission, type, parent));
-			}
-		}
-
-		return createdItems;
+		return ScheduleItemConstructor.Instance.CreateItemsForDayOfTheWeek(dayOfWeek, ShowBreakTime, parent).ToList();
 	}
 
 	void ClearContent()
@@ -88,18 +55,16 @@ public class Schedule : MonoBehaviour
 		foreach (Transform transform in sundayContent) Destroy(transform.gameObject);
 	}
 
-	// Events
-
 	// Unity
 	private void OnEnable()
 	{
 		FillContent();
 
-
+		OnEnabled?.Invoke();
 	}
 
 	private void OnDisable()
 	{
-
+		OnDisabled?.Invoke();
 	}
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class Menu : MonoBehaviour
 #pragma warning restore 0649
 
 	static Menu activeMenu;
+	static List<Menu> allMenus = new List<Menu>();
 
 	public void OpenMenu()
 	{
@@ -32,8 +34,16 @@ public class Menu : MonoBehaviour
 		content.gameObject.SetActive(false);
 	}
 
+	public static Menu GetMenu(string name)
+	{
+		return allMenus.Find(obj => obj.gameObject.name == name);
+	}
+
+	// Unity
 	private void Start()
 	{
+		allMenus.Add(this);
+
 		if (srartingMenu)
 		{
 			OpenMenu();

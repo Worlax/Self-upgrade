@@ -1,72 +1,35 @@
 {
-  "dateCreated": "2021-12-07T00:00:00",
-  "totalSeconds": 5,
+  "dateCreated": "2021-12-09T00:00:00",
+  "totalSeconds": 10,
   "Upgrades": [
     {
-      "Name": "Chec1",
+      "Name": "Check1",
       "Type": 0,
       "Calendar": {
-        "Days": [],
+        "Days": [
+          {
+            "Date": "2021-12-09T00:00:00",
+            "Goal": 1,
+            "Progress": 13
+          }
+        ],
         "ActiveMissions": [
           {
             "Goal": 1,
-            "DayOfWeek": 2,
-            "TimeStart": "12:35:00",
-            "BreakSeconds": 1320,
-            "WeeksBeforeRepeat": 1
-          },
-          {
-            "Goal": 1,
-            "DayOfWeek": 1,
-            "TimeStart": "08:00:00",
-            "BreakSeconds": 2000,
-            "WeeksBeforeRepeat": 1
-          },
-          {
-            "Goal": 1,
-            "DayOfWeek": 5,
-            "TimeStart": "08:00:00",
-            "BreakSeconds": 2000,
+            "DayOfWeek": 4,
+            "TimeStart": "00:00:00",
+            "BreakSeconds": 0,
             "WeeksBeforeRepeat": 1
           }
         ]
       }
     },
     {
-      "Name": "Mcheck",
+      "Name": "Mcheck1",
       "Type": 1,
       "Calendar": {
         "Days": [],
-        "ActiveMissions": [
-          {
-            "Goal": 50,
-            "DayOfWeek": 0,
-            "TimeStart": "12:35:00",
-            "BreakSeconds": 1320,
-            "WeeksBeforeRepeat": 1
-          },
-          {
-            "Goal": 10,
-            "DayOfWeek": 1,
-            "TimeStart": "08:00:00",
-            "BreakSeconds": 2000,
-            "WeeksBeforeRepeat": 1
-          },
-          {
-            "Goal": 20,
-            "DayOfWeek": 5,
-            "TimeStart": "08:00:00",
-            "BreakSeconds": 2000,
-            "WeeksBeforeRepeat": 1
-          },
-          {
-            "Goal": 25,
-            "DayOfWeek": 5,
-            "TimeStart": "08:00:00",
-            "BreakSeconds": 2000,
-            "WeeksBeforeRepeat": 1
-          }
-        ]
+        "ActiveMissions": []
       }
     },
     {
@@ -75,24 +38,31 @@
       "Calendar": {
         "Days": [
           {
-            "Date": "2021-12-07T00:00:00",
-            "ProgressValue": 5,
-            "CompletedMissions": []
+            "Date": "2021-12-09T00:00:00",
+            "Goal": 0,
+            "Progress": 4
+          }
+        ],
+        "ActiveMissions": []
+      }
+    },
+    {
+      "Name": "Timer1",
+      "Type": 2,
+      "Calendar": {
+        "Days": [
+          {
+            "Date": "2021-12-09T00:00:00",
+            "Goal": 1800,
+            "Progress": 6
           }
         ],
         "ActiveMissions": [
           {
-            "Goal": 12000,
-            "DayOfWeek": 2,
-            "TimeStart": "12:35:00",
-            "BreakSeconds": 1320,
-            "WeeksBeforeRepeat": 1
-          },
-          {
-            "Goal": 8000,
-            "DayOfWeek": 1,
-            "TimeStart": "08:00:00",
-            "BreakSeconds": 2000,
+            "Goal": 1800,
+            "DayOfWeek": 4,
+            "TimeStart": "05:00:00",
+            "BreakSeconds": 600,
             "WeeksBeforeRepeat": 1
           }
         ]

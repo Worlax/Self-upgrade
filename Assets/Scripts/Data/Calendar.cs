@@ -13,19 +13,14 @@ public class Calendar
 	{
 		CreateDayIfDosentExists(date);
 		Day day = GetDay(date);
-		day.ProgressValue += value;
-
-		if (day.ProgressValue < 0)
-		{
-			day.ProgressValue = 0;
-		}
+		day.ChangeProgressBy(value);
 	}
 
 	public int GetValue(DateTime date)
 	{
 		if (GetDay(date) != null)
 		{
-			return GetDay(date).ProgressValue;
+			return GetDay(date).Progress;
 		}
 		else
 		{
@@ -55,20 +50,51 @@ public class Calendar
 		int totalValue = 0;
 		foreach (Day day in Days)
 		{
-			totalValue += day.ProgressValue;
+			totalValue += day.Progress;
 		}
 
 		return totalValue;
 	}
 
+	public List<Mission> GetTodayMissions()
+	{
+		return ActiveMissions.Where(obj => obj.DayOfWeek == DateTime.Today.DayOfWeek).ToList();
+	}
+
+	public Mission GetNowMission()
+	{
+		TimeSpan nowTime = DateTime.Now.TimeOfDay;
+		List<Mission> alreadyStartedMissions = GetTodayMissions().Where(obj => obj.TimeStart < nowTime).ToList();
+		Mission haventFinishedMission = alreadyStartedMissions.Find(obj => obj.TimeEnd > nowTime);
+
+		return haventFinishedMission;
+	}
+
+	//public int GetCurrentMissionProgress()
+	//{
+	//	//
+	//}
+
 	public void AddMission(Mission mission)
 	{
 		ActiveMissions.Add(mission);
+		UpdateTodayGoal();
 	}
 
-	public List<Mission> GetAllMisssionsByDayOfTheWeek(DayOfWeek dayOfWeek)
+	public void DeleteMission(Mission mission)
 	{
-		return ActiveMissions.Where(obj => obj.DayOfWeek == dayOfWeek).ToList();
+		ActiveMissions.Remove(mission);
+		UpdateTodayGoal();
+	}
+
+	void UpdateTodayGoal()
+	{
+		//Day today = GetDay(DateTime.Today);
+
+		//if (today != null)
+		//{
+		//	today.UpdateGoal(ActiveMissions);
+		//}
 	}
 
 	void CreateDayIfDosentExists(DateTime date)
@@ -77,7 +103,7 @@ public class Calendar
 
 		if (GetDay(date) == null)
 		{
-			Days.Add(new Day(date));
+			Days.Add(new Day(date, ActiveMissions));
 		}
 	}
 

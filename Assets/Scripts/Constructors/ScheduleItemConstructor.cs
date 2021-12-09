@@ -1,37 +1,80 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-public enum ScheduleItemType
-{
-	upgrade, upgradeWithValue, upgradeWithTimeAndBreak
-}
 
 public class ScheduleItemConstructor : Singleton<ScheduleItemConstructor>
 {
 #pragma warning disable 0649
 
 	[SerializeField] ScheduleItem upgradePrefab;
-	[SerializeField] ScheduleItem upgradeWithTimePrefab;
-	[SerializeField] ScheduleItem upgradeWithTimeAndBreakPrefab;
+	[SerializeField] ScheduleItem upgradeWithValuePrefab;
+	[SerializeField] ScheduleItem upgradeWithValueAndBreakPrefab;
 
 #pragma warning restore 0649
 
-	public ScheduleItem CreateItem(Upgrade upgrade, Mission mission, ScheduleItemType type, Transform parent)
+	// Creating items in the right order: Checkers, Multichekers, Timers(sorted)
+	public List<ScheduleItem> CreateItemsForDayOfTheWeek(DayOfWeek dayOfWeek, bool ShowBreakTime, Transform parent)
+	{
+		List<Upgrade> nonTimers = Upgrade.AllUpgrades.Where(obj => obj.Type != UpgradeType.Timer).ToList();
+		List<Upgrade> timers = Upgrade.AllUpgrades.Where(obj => obj.Type == UpgradeType.Timer).ToList();
+		List<ScheduleItem> createdItems = new List<ScheduleItem>();
+
+		// Non timers go first
+		createdItems.AddRange(CreateItemsForUpgrades(nonTimers, dayOfWeek, ShowBreakTime));
+
+		// Timers go last
+		List<ScheduleItem> timerItems = CreateItemsForUpgrades(timers, dayOfWeek, ShowBreakTime);
+		timerItems.Sort();
+		createdItems.AddRange(timerItems);
+
+		createdItems.ForEach(obj => obj.transform.SetParent(parent, false));
+
+		return createdItems;
+	}
+
+	List<ScheduleItem> CreateItemsForUpgrades(List<Upgrade> upgrades, DayOfWeek dayOfWeek, bool ShowBreakTime)
+	{
+		List<ScheduleItem> createdItems = new List<ScheduleItem>();
+
+		foreach (Upgrade upgrade in upgrades)
+		{
+			foreach (Mission mission in upgrade.Calendar.ActiveMissions)
+			{
+				if (mission.DayOfWeek == dayOfWeek)
+				{
+					createdItems.Add(CreateItem(upgrade, mission, ShowBreakTime));
+				}
+			}
+		}
+
+		return createdItems;
+	}
+
+	ScheduleItem CreateItem(Upgrade upgrade, Mission mission, bool ShowBreakTime)
 	{
 		ScheduleItem item = null;
 
-		switch (type)
+		switch (upgrade.Type)
 		{
-			case ScheduleItemType.upgrade:
-				item = Instantiate(upgradePrefab, parent);
+			case UpgradeType.Checker:
+				item = Instantiate(upgradePrefab);
 				break;
 
-			case ScheduleItemType.upgradeWithValue:
-				item = Instantiate(upgradeWithTimePrefab, parent);
+			case UpgradeType.MultiChecker:
+				item = Instantiate(upgradeWithValuePrefab);
 				break;
 
-			case ScheduleItemType.upgradeWithTimeAndBreak:
-				item = Instantiate(upgradeWithTimeAndBreakPrefab, parent);
+			case UpgradeType.Timer:
+				if (ShowBreakTime)
+				{
+					item = Instantiate(upgradeWithValueAndBreakPrefab);
+				}
+				else
+				{
+					item = Instantiate(upgradeWithValuePrefab);
+				}
 				break;
 		}
 

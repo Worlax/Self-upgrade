@@ -23,16 +23,11 @@ public class UpgradesList : Singleton<UpgradesList>
 	HashSet<UpgradeType> avaibleTypesAsAll = new HashSet<UpgradeType>();
 	bool allGlobal = true;
 
-	//public void Init()
-	//{
-	//	foreach(UpgradeType type in Enum.GetValues(typeof(UpgradeType)))
-	//	{
-	//		avaibleTypes.Add(type);
-	//		avaibleTypesAsAll.Add(type);
-	//	}
-
-	//	UpdateDisplay();
-	//}
+	public void SetActive(Upgrade upgrade)
+	{
+		int indexInList = dropdown.options.FindIndex(obj => obj.text == upgrade.Name);
+		dropdown.value = indexInList;
+	}
 
 	public List<Upgrade> GetActive()
 	{

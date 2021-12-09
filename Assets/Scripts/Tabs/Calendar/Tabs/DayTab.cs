@@ -16,17 +16,20 @@ public class DayTab : MonoBehaviour
 	[SerializeField] RectTransform dayContent6;
 	[SerializeField] RectTransform dayContent7;
 
-	[SerializeField] Text day1Name;
-	[SerializeField] Text day2Name;
-	[SerializeField] Text day3Name;
-	[SerializeField] Text activeDayName;
-	[SerializeField] Text day5Name;
-	[SerializeField] Text day6Name;
-	[SerializeField] Text day7Name;
+	[SerializeField] DayItem day1;
+	[SerializeField] DayItem day2;
+	[SerializeField] DayItem day3;
+	[SerializeField] DayItem activeDay;
+	[SerializeField] DayItem day5;
+	[SerializeField] DayItem day6;
+	[SerializeField] DayItem day7;
 
 #pragma warning restore 0649
 
 	DateTime currentDate;
+
+	public static event Action OnEnabled;
+	public static event Action OnDisabled;
 
 	public List<UICalendarUpgradeItem> FillContent(DateTime date)
 	{
@@ -36,20 +39,20 @@ public class DayTab : MonoBehaviour
 
 		// Filling 3 days befor, 1 current day and 3 days after with content
 		// and changing their names
-		createdItems.AddRange(FilLDay(date.AddDays(-3), dayContent1, day1Name));
-		createdItems.AddRange(FilLDay(date.AddDays(-2), dayContent2, day2Name));
-		createdItems.AddRange(FilLDay(date.AddDays(-1), dayContent3, day3Name));
-		createdItems.AddRange(FilLDay(date, activeDayContent, activeDayName));
-		createdItems.AddRange(FilLDay(date.AddDays(1), dayContent5, day5Name));
-		createdItems.AddRange(FilLDay(date.AddDays(2), dayContent6, day6Name));
-		createdItems.AddRange(FilLDay(date.AddDays(3), dayContent7, day7Name));
+		createdItems.AddRange(FilLDay(date.AddDays(-3), dayContent1, day1));
+		createdItems.AddRange(FilLDay(date.AddDays(-2), dayContent2, day2));
+		createdItems.AddRange(FilLDay(date.AddDays(-1), dayContent3, day3));
+		createdItems.AddRange(FilLDay(date, activeDayContent, activeDay));
+		createdItems.AddRange(FilLDay(date.AddDays(1), dayContent5, day5));
+		createdItems.AddRange(FilLDay(date.AddDays(2), dayContent6, day6));
+		createdItems.AddRange(FilLDay(date.AddDays(3), dayContent7, day7));
 
 		return createdItems;
 	}
 
-	List<UICalendarUpgradeItem> FilLDay(DateTime date, RectTransform parent, Text dayName)
+	List<UICalendarUpgradeItem> FilLDay(DateTime date, RectTransform parent, DayItem dayItem)
 	{
-		dayName.text = date.Day.ToString();
+		dayItem.Init(date);
 		List<UICalendarUpgradeItem> createdItems = new List<UICalendarUpgradeItem>();
 
 		foreach (Upgrade upgrade in UpgradesList.Instance.GetActive())
@@ -90,10 +93,14 @@ public class DayTab : MonoBehaviour
 	private void OnEnable()
 	{
 		UpgradesList.Instance.OnActiveUpgradesChanged += ActiveUpgradesChanged;
+
+		OnEnabled?.Invoke();
 	}
 
 	private void OnDisable()
 	{
 		UpgradesList.Instance.OnActiveUpgradesChanged += ActiveUpgradesChanged;
+
+		OnDisabled?.Invoke();
 	}
 }

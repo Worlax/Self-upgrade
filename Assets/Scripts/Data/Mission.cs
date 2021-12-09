@@ -7,6 +7,7 @@ public class Mission
 	[JsonProperty] public int Goal { get; private set; }
 	[JsonProperty] public DayOfWeek DayOfWeek { get; private set; }
 	[JsonProperty] public TimeSpan TimeStart { get; private set; }
+	public TimeSpan TimeEnd { get => TimeStart + new TimeSpan(0, 0, Goal); }
 	[JsonProperty] public int BreakSeconds { get; private set; }
 	[JsonProperty] public int WeeksBeforeRepeat { get; private set; }
 

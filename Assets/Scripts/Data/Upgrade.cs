@@ -49,8 +49,6 @@ public class Upgrade : IComparable<Upgrade>
 		{
 			return null;
 		}
-
-		
 	}
 
 	public static void DeleteUpgrade(string name)

@@ -8,7 +8,7 @@ public enum UICalendarItemType
 	Year, Month, Day
 }
 
-public class UICalendarItem : MonoBehaviour
+public class UICalendarItem : MonoBehaviour, IHighlightable
 {
 #pragma warning disable 0649
 

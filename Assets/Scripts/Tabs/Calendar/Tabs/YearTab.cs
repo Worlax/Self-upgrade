@@ -10,6 +10,9 @@ public class YearTab : MonoBehaviour
 
 #pragma warning restore 0649
 
+	public static event Action OnEnabled;
+	public static event Action OnDisabled;
+
 	public List<UICalendarItem> FillContent(DateTime date)
 	{
 		ClearContent();
@@ -42,5 +45,16 @@ public class YearTab : MonoBehaviour
 		{
 			Destroy(obj.gameObject);
 		}
+	}
+
+	// Unity
+	private void OnEnable()
+	{
+		OnEnabled?.Invoke();
+	}
+
+	private void OnDisable()
+	{
+		OnDisabled?.Invoke();
 	}
 }
