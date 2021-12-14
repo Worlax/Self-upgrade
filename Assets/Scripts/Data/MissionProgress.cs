@@ -9,6 +9,8 @@ public class MissionProgress
 	[JsonProperty] public int Goal;
 	[JsonProperty] public int Progress;
 
+	[JsonConstructor] MissionProgress() { }
+
 	public MissionProgress(Mission mission)
 	{
 		TimeStart = mission.TimeStart;

@@ -22,6 +22,9 @@ public class UICalendarItem : MonoBehaviour, IHighlightable
 	[SerializeField] Color highlightColor;
 	[SerializeField] Image progressFill;
 
+	[SerializeField] Scrollbar scheduleScroll;
+	[SerializeField] Text scheduleText;
+
 #pragma warning restore 0649
 
 	Color normalColor;
@@ -101,6 +104,8 @@ public class UICalendarItem : MonoBehaviour, IHighlightable
 				{
 					secondsInMyDate += upgrade.Calendar.GetValueInDiapason(startOfTheYear, endOfTheYear);
 				}
+
+				UpdateScheduleVisual(startOfTheYear, endOfTheYear);
 				break;
 
 			case UICalendarItemType.Month:
@@ -112,6 +117,8 @@ public class UICalendarItem : MonoBehaviour, IHighlightable
 				{
 					secondsInMyDate += upgrade.Calendar.GetValueInDiapason(startOfTheMonth, endOfTheMonth);
 				}
+
+				UpdateScheduleVisual(startOfTheMonth, endOfTheMonth);
 				break;
 
 			case UICalendarItemType.Day:
@@ -119,10 +126,38 @@ public class UICalendarItem : MonoBehaviour, IHighlightable
 				{
 					secondsInMyDate += upgrade.Calendar.GetValue(date);
 				}
+
+				UpdateScheduleVisual(date, date);
 				break;
 		}
 
 		timeText.text = TimeConverter.TimeString(secondsInMyDate);
+	}
+
+	void UpdateScheduleVisual(DateTime dateStart, DateTime dateEnd)
+	{
+		List<Upgrade> activeUpgrades = UpgradesList.Instance.GetActive();
+		double schedule = 0;
+
+		foreach (Upgrade upgrade in activeUpgrades)
+		{
+			schedule += upgrade.Calendar.GetScheduleCompletionInDiapason(dateStart, dateEnd);
+		}
+
+		print("From: " + dateStart.ToString("dd") + " To: " + dateEnd.ToString("dd") + " Schedule: " + schedule);
+
+		if (schedule == -1)
+		{
+			//schedule
+		}
+		else
+		{
+
+		}
+		schedule = Math.Truncate(schedule * 100) / 100;
+
+		scheduleScroll.size = (float)schedule;
+		scheduleText.text = (schedule * 100).ToString() + "%";
 	}
 
 	// Events

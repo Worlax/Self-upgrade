@@ -8,9 +8,9 @@ public class Day
 {
 	[JsonProperty] public DateTime Date { get; private set; }
 	[JsonProperty] public int Progress { get; private set; }
-	[JsonProperty] public List<MissionProgress> MissionsProgress { get; private set; } = new List<MissionProgress>();
 
-	List<Mission> activeMissions;
+	[JsonProperty] List<MissionProgress> missionsProgress = new List<MissionProgress>();
+	[JsonProperty] List<Mission> activeMissions;
 
 	[JsonConstructor] Day() { }
 
@@ -18,6 +18,25 @@ public class Day
 	{
 		Date = date;
 		this.activeMissions = activeMissions;
+	}
+
+	public bool HaveScheduleCompletion()
+	{
+		return GetScheduleCompletion() != -1;
+	}
+
+	public double GetScheduleCompletion()
+	{
+		if (missionsProgress.Count() == 0) return -1;
+
+		double total = 0;
+
+		foreach (MissionProgress mp in missionsProgress)
+		{
+			total = mp.Progress / mp.Goal;
+		}
+
+		return total / missionsProgress.Count();
 	}
 
 	public void ChangeProgressBy(int by)
@@ -30,7 +49,29 @@ public class Day
 
 	public int GetCurrentMissionProgress()
 	{
-		return FindActiveMissionInWritten().Progress;
+		MissionProgress activeWrittenMission = FindActiveMissionInWritten();
+
+		if (activeWrittenMission != null)
+		{
+			return activeWrittenMission.Progress;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	public bool DoesMissionHaveProgress(Mission mission)
+	{
+		foreach (MissionProgress mp in missionsProgress)
+		{
+			if (mp.TimeStart == mission.TimeStart && mp.TimeEnd == mission.TimeEnd)
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	void ChangeActiveMissionProgress(int by)
@@ -55,14 +96,14 @@ public class Day
 		{
 			activeMission.Progress += by;
 
-			if (activeMission.Progress <= 0) MissionsProgress.Remove(activeMission);
+			if (activeMission.Progress <= 0) missionsProgress.Remove(activeMission);
 		}
 	}
 
 	MissionProgress FindActiveMissionInWritten()
 	{
 		TimeSpan nowTime = DateTime.Now.TimeOfDay;
-		List<MissionProgress> alreadyStartedMissions = MissionsProgress.Where(obj => obj.TimeStart < nowTime).ToList();
+		List<MissionProgress> alreadyStartedMissions = missionsProgress.Where(obj => obj.TimeStart < nowTime).ToList();
 		MissionProgress haventFinishedMission = alreadyStartedMissions.Find(obj => obj.TimeEnd > nowTime);
 
 		return haventFinishedMission;
@@ -80,7 +121,7 @@ public class Day
 	MissionProgress WriteMissionProgress(Mission mission)
 	{
 		MissionProgress missionProgress = new MissionProgress(mission);
-		MissionsProgress.Add(missionProgress);
+		missionsProgress.Add(missionProgress);
 
 		return missionProgress;
 	}

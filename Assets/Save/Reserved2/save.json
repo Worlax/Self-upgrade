@@ -17,9 +17,16 @@
         "Days": [],
         "ActiveMissions": [
           {
-            "Goal": 7200,
+            "Goal": 8500,
             "DayOfWeek": 0,
             "TimeStart": "08:00:00",
+            "BreakSeconds": 3600,
+            "WeeksBeforeRepeat": 1
+          },
+          {
+            "Goal": 7200,
+            "DayOfWeek": 0,
+            "TimeStart": "11:30:00",
             "BreakSeconds": 3600,
             "WeeksBeforeRepeat": 1
           }

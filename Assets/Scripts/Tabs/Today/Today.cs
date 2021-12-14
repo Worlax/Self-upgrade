@@ -16,47 +16,43 @@ public class Today : MonoBehaviour
 
 	public bool ShowBreakTime = true;
 
-	void FillContent()
+	void UpdateDisplay()
 	{
 		ClearContent();
+		int timerPosition = 0 + upgradeContent.childCount;
 
 		dateText.text = DateTime.Today.ToString("MMMM dd, dddd");
 		List<ScheduleItem> createdItems = ScheduleItemConstructor.Instance.CreateItemsForDayOfTheWeek(DateTime.Today.DayOfWeek, ShowBreakTime, upgradeContent);
 		createdItems.ForEach(obj => obj.OnClicked += OnItemClicled);
 
-		CreateTimeItem(createdItems);
+		// All passed missions will be gray out and timer position will be right after them
+		// (plus child count, because object destruction will happend only on the end of the frame)
+		foreach (ScheduleItem item in createdItems)
+		{
+			if (item.Upgrade.Type == UpgradeType.Timer)
+			{
+				if (item.Mission.TimeEnd < DateTime.Now.TimeOfDay)
+				{
+					item.GrayOut(true);
+					++timerPosition;
+				}
+			}
+			else
+			{
+				++timerPosition;
+			}	
+		}
+		CreateTimeItem(createdItems, timerPosition);
 	}
 
-	void CreateTimeItem(List<ScheduleItem> createdItems)
+	void CreateTimeItem(List<ScheduleItem> createdItems, int position)
 	{
 		TimeSpan time = DateTime.Now.TimeOfDay;
 		string timeText = time.Hours.ToString() + "h " + time.Minutes.ToString() + "m";
-		int sublingIndex = -1;
-
-		for (int i = 0; i < createdItems.Count; ++i)
-		{
-			if (createdItems[i].Upgrade.Type == UpgradeType.Timer)
-			{
-				if (createdItems[i].Mission.TimeStart + new TimeSpan(0, 0, createdItems[i].Mission.Goal) > time)
-				{
-					sublingIndex = i;
-					break;
-				}
-				else
-				{
-					createdItems[i].GrayOut(true);
-				}
-			}
-		}
-
-		if (sublingIndex < 0)
-		{
-			sublingIndex = createdItems.Count;
-		}
 
 		RectTransform timeUI = Instantiate(timePrefab, upgradeContent);
 		timeUI.GetComponentInChildren<Text>().text = timeText;
-		timeUI.SetSiblingIndex(sublingIndex);
+		timeUI.SetSiblingIndex(position);
 	}
 
 	void ClearContent()
@@ -88,11 +84,15 @@ public class Today : MonoBehaviour
 	// Unity
 	private void OnEnable()
 	{
-		FillContent();
+		UpdateDisplay();
+
+		TimeEvents.OnOneMinutePassed += UpdateDisplay;
 	}
 
 	private void OnDisable()
 	{
 		ClearContent();
+
+		TimeEvents.OnOneMinutePassed -= UpdateDisplay;
 	}
 }

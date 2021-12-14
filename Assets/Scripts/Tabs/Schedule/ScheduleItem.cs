@@ -34,10 +34,10 @@ public class ScheduleItem : MonoBehaviour, IComparable<ScheduleItem>
 			switch (upgrade.Type)
 			{
 				case UpgradeType.Timer:
-					value = mission.TimeStart.Hours.ToString() + ":" + mission.TimeStart.Minutes.ToString();
+					
+					value = mission.TimeStart.ToString("hh") + ":" + mission.TimeStart.ToString("mm");
 					value += " - ";
-					TimeSpan endOfMissionTime = mission.TimeStart.Add(new System.TimeSpan(0, 0, mission.Goal));
-					value += endOfMissionTime.Hours.ToString() + ":" + endOfMissionTime.Minutes.ToString();
+					value += mission.TimeEnd.ToString("hh") + ":" + mission.TimeEnd.ToString("mm");
 					break;
 
 				case UpgradeType.MultiChecker:
@@ -56,6 +56,8 @@ public class ScheduleItem : MonoBehaviour, IComparable<ScheduleItem>
 
 	public void GrayOut(bool value)
 	{
+		selfButton.interactable = value;
+
 		if (value)
 		{
 			grayOut.alpha = 0.35f;

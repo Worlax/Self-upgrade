@@ -17,7 +17,7 @@ public class Upgrade : IComparable<Upgrade>
 
 	public static List<Upgrade> AllUpgrades { get; private set; } = new List<Upgrade>();
 
-	private Upgrade() { }
+	[JsonConstructor] Upgrade() { }
 
 	public static event Action<Upgrade> OnNewUpgradeCreated;
 	public static event Action<string> OnUpgradeDeleted;

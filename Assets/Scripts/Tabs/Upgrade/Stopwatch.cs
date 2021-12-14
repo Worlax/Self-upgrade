@@ -30,6 +30,7 @@ public class Stopwatch : MonoBehaviour
 
 	public static event Action OnStopwatchSrart;
 	public static event Action OnStopwatchStop;
+	public static event Action OnStopwatchSecondPassed;
 
 	private void Update()
 	{
@@ -39,8 +40,9 @@ public class Stopwatch : MonoBehaviour
 
 			activeUpgrade.Calendar.ChangeValueBy(DateTime.Today, 1);
 			UpdateDisplay();
-
 			nextUpdateSecond += 1;
+
+			OnStopwatchSecondPassed?.Invoke();
 		}
 	}
 

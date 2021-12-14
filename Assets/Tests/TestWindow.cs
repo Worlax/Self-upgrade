@@ -37,10 +37,20 @@ public class TestWindow : MonoBehaviour
 
 	void SomeTesting(string input)
 	{
-		TimeSpan time = new TimeSpan(0, 0, Int32.Parse(input));
+		foreach (Upgrade upgrade in UpgradesList.Instance.GetActive())
+		{
+			FailedGoals fg = upgrade.Calendar.GetFailedGoals(DateTime.Today);
 
-		print(time.Days * 24 + time.Hours + ":" + time.Minutes + ":" + time.Seconds);
-		//print(TimeConverter.TimeString(Int32.Parse(input)));
+			if (fg != null)
+			{
+				foreach (Mission mission in fg.FailedMissions)
+				{
+					print("Mission in '" + upgrade.Name + "' failed: ");
+					print("time start: " + mission.TimeStart.ToString("g") + " time end: " + mission.TimeEnd.ToString("g"));
+					print("goal failed: " + mission.Goal);
+				}
+			}
+		}
 	}
 	//
 

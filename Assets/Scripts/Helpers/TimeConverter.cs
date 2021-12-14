@@ -2,7 +2,8 @@ using UnityEngine;
 
 public static class TimeConverter
 {
-	public static string TimeString(int seconds, bool showSeconds = true,
+	public static string TimeString(int seconds, bool showSecondsIfAny = true,
+		bool alwaysShowHours = false, bool alwaysShowMinutes = false, bool alwaysShowSeconds = false,
 		string hoursAbbr = "h", string minutesAbbr = "m", string secondsAbbr = "s")
 	{
 		string time = "";
@@ -11,28 +12,43 @@ public static class TimeConverter
 		int s = Seconds(seconds);
 		bool separationIsNeeded = false;
 
-		if (h > 0)
+		if (h > 0 || alwaysShowHours)
 		{
+			if (alwaysShowHours && h < 10)
+			{
+				time += "0";
+			}
+
 			time += h + hoursAbbr;
 			separationIsNeeded = true;
 		}
 
-		if (m > 0)
+		if (m > 0 || alwaysShowMinutes)
 		{
 			if (separationIsNeeded)
 			{
 				time += " ";
 			}
 
+			if (alwaysShowMinutes && m < 10)
+			{
+				time += "0";
+			}
+
 			time += m + minutesAbbr;
 			separationIsNeeded = true;
 		}
 
-		if (s > 0 && showSeconds)
+		if ((s > 0 && showSecondsIfAny) || alwaysShowSeconds)
 		{
 			if (separationIsNeeded)
 			{
 				time += " ";
+			}
+
+			if (alwaysShowSeconds && s < 10)
+			{
+				time += "0";
 			}
 
 			time += s + secondsAbbr;
