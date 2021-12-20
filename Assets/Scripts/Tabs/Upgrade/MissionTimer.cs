@@ -20,17 +20,17 @@ public class MissionTimer : MonoBehaviour
 	void UpdateDisplay()
 	{
 		Upgrade activeUpgrade = UpgradesList.Instance.GetActive()[0];
-		Mission currentMission = activeUpgrade.Calendar.GetNowMission();
+		MissionProgress activeMissionProgress = activeUpgrade.Progress.MissionCalendar.GetActiveMission();
 
-		if (currentMission != null)
+		if (activeMissionProgress != null)
 		{
 			ShowVisual(true);
 
 			// Info math
-			int goal = currentMission.Goal;
-			int progress = activeUpgrade.Calendar.GetCurrentMissionProgress();
+			int goal = activeMissionProgress.Mission.Goal;
+			int progress = activeMissionProgress.Progress;
 
-			TimeSpan timeEnd = currentMission.TimeEnd;
+			TimeSpan timeEnd = activeMissionProgress.Mission.TimeEnd;
 			TimeSpan timeNow = DateTime.Now.TimeOfDay;
 
 			TimeSpan upgradeTimeLeft = new TimeSpan(0, 0, goal - progress);
@@ -88,7 +88,7 @@ public class MissionTimer : MonoBehaviour
 		UpdateDisplay();
 	}
 
-	void ActiveUpgradesChanged(List<Upgrade> upgrade)
+	void ActiveUpgradesChanged(IReadOnlyList<Upgrade> upgrade)
 	{
 		UpdateDisplay();
 	}

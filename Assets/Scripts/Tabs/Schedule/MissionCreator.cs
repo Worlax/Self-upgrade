@@ -1,8 +1,9 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CreateMission : MonoBehaviour
+public class MissionCreator : MonoBehaviour
 {
 #pragma warning disable 0649
 
@@ -17,14 +18,17 @@ public class CreateMission : MonoBehaviour
 
 #pragma warning restore 0649
 
+	//public event Action OnMissionCreated;
+	//public event Action OnMissionDeleted;
+
 	// Events
 	void Create()
 	{
-		Upgrade upgrade = Upgrade.AllUpgrades.Find(obj => obj.Name == upgradeName.text);
+		Upgrade upgrade = Upgrade.AllUpgrades.ToList().Find(obj => obj.Name == upgradeName.text);
 		Mission mission = new Mission(Int32.Parse(goal.text), (DayOfWeek)Int32.Parse(dayOfTheWeek.text),
 			new TimeSpan(Int32.Parse(TimeStartHours.text), Int32.Parse(TimeStartMinutes.text), 0), 1, Int32.Parse(BreakSeconds.text));
 
-		upgrade.Calendar.AddMission(mission);
+		upgrade.Progress.MissionCalendar.AddMissionToSchedule(mission);
 	}
 
 	// Unity

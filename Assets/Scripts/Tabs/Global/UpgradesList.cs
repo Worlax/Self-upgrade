@@ -17,7 +17,7 @@ public class UpgradesList : Singleton<UpgradesList>
 	const string ALL_CHECKERS = "<b><color=navy>All Checkers</color></b>";
 	const string ALL_MULTI_CHECKERS = "<b><color=navy>All MCheckers</color></b>";
 
-	public event Action<List<Upgrade>> OnActiveUpgradesChanged;
+	public event Action<IReadOnlyList<Upgrade>> OnActiveUpgradesChanged;
 
 	HashSet<UpgradeType> avaibleTypes = new HashSet<UpgradeType>();
 	HashSet<UpgradeType> avaibleTypesAsAll = new HashSet<UpgradeType>();
@@ -29,7 +29,7 @@ public class UpgradesList : Singleton<UpgradesList>
 		dropdown.value = indexInList;
 	}
 
-	public List<Upgrade> GetActive()
+	public IReadOnlyList<Upgrade> GetActive()
 	{
 		string activeOptionName = dropdown.options[dropdown.value].text;
 		List<Upgrade> activeUpgrades = new List<Upgrade>();
@@ -58,12 +58,12 @@ public class UpgradesList : Singleton<UpgradesList>
 				break;
 
 			default:
-				Upgrade singleUpgrade = Upgrade.AllUpgrades.Find(obj => obj.Name == activeOptionName);
+				Upgrade singleUpgrade = Upgrade.AllUpgrades.ToList().Find(obj => obj.Name == activeOptionName);
 				activeUpgrades.Add(singleUpgrade);
 				break;
 		}
 
-		return activeUpgrades;
+		return activeUpgrades.AsReadOnly();
 	}
 
 	public void SetAvaibleTypes(HashSet<UpgradeType> avaibleTypes, HashSet<UpgradeType> avaibleTypesAsAll, bool allGlobal)

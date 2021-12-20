@@ -2687,6 +2687,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 149570700}
+  - component: {fileID: 149570702}
   - component: {fileID: 149570701}
   m_Layer: 0
   m_Name: Content
@@ -2735,6 +2736,23 @@ MonoBehaviour:
   checkers: 1
   allMultiCheckers: 1
   multiCheckers: 1
+--- !u!114 &149570702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149570699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5c666325f92bdd4e88a18d8fdc3f6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoursToday: {fileID: 332045081}
+  hoursThisWeek: {fileID: 356872320}
+  hoursThisMonth: {fileID: 2027837227}
+  hoursThisYear: {fileID: 1908712657}
+  hoursTotal: {fileID: 283751469}
 --- !u!1 &150928482
 GameObject:
   m_ObjectHideFlags: 0
@@ -3984,7 +4002,7 @@ GameObject:
   m_Component:
   - component: {fileID: 265462255}
   m_Layer: 0
-  m_Name: Element
+  m_Name: Hours total
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15760,7 +15778,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1186873704}
   m_Layer: 0
-  m_Name: Element (2)
+  m_Name: Hours this month
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20481,7 +20499,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1522638050}
   m_Layer: 0
-  m_Name: Element (1)
+  m_Name: Hours this year
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21294,7 +21312,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1673370929}
   m_Layer: 0
-  m_Name: Element (3)
+  m_Name: Hours this week
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23552,7 +23570,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Planned upgrade:'
+  m_Text: 'Until full upgrade:'
 --- !u!222 &1874091341
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23864,7 +23882,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1885500800}
   m_Layer: 0
-  m_Name: Element (3)
+  m_Name: Hours today
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

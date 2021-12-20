@@ -22,16 +22,16 @@ public class UICalendarUpgradeItem : MonoBehaviour
 			switch (upgrade.Type)
 			{
 				case UpgradeType.Timer:
-					int seconds = upgrade.Calendar.GetValue(date);
+					int seconds = upgrade.Progress.GetValue(date);
 					valueText = TimeConverter.TimeString(seconds);
 					break;
 
 				case UpgradeType.MultiChecker:
-					valueText = upgrade.Calendar.GetValue(date).ToString();
+					valueText = upgrade.Progress.GetValue(date).ToString();
 					break;
 			}
 
-			upgradeValue.text = valueText; upgrade.Calendar.GetValue(date).ToString();
+			upgradeValue.text = valueText; upgrade.Progress.GetValue(date).ToString();
 		}
 	}
 }

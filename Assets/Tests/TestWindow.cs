@@ -37,20 +37,7 @@ public class TestWindow : MonoBehaviour
 
 	void SomeTesting(string input)
 	{
-		foreach (Upgrade upgrade in UpgradesList.Instance.GetActive())
-		{
-			FailedGoals fg = upgrade.Calendar.GetFailedGoals(DateTime.Today);
 
-			if (fg != null)
-			{
-				foreach (Mission mission in fg.FailedMissions)
-				{
-					print("Mission in '" + upgrade.Name + "' failed: ");
-					print("time start: " + mission.TimeStart.ToString("g") + " time end: " + mission.TimeEnd.ToString("g"));
-					print("goal failed: " + mission.Goal);
-				}
-			}
-		}
 	}
 	//
 

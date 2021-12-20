@@ -1,29 +1,505 @@
 {
-  "dateCreated": "2021-12-12T00:00:00",
-  "totalSeconds": 0,
+  "dateCreated": "2021-12-26T00:00:00",
+  "totalSeconds": 228,
   "Upgrades": [
     {
       "Name": "Autocreated",
       "Type": 2,
-      "Calendar": {
-        "Days": [],
-        "ActiveMissions": []
+      "Progress": {
+        "days": [],
+        "MissionCalendar": {
+          "days": [
+            {
+              "allScheduledMissions": [],
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2021-12-19T00:00:00"
+            },
+            {
+              "allScheduledMissions": [],
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2021-12-20T00:00:00"
+            },
+            {
+              "allScheduledMissions": [],
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2021-12-21T00:00:00"
+            },
+            {
+              "allScheduledMissions": [],
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2021-12-22T00:00:00"
+            },
+            {
+              "allScheduledMissions": [],
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2021-12-23T00:00:00"
+            },
+            {
+              "allScheduledMissions": [],
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2021-12-24T00:00:00"
+            },
+            {
+              "allScheduledMissions": [],
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2021-12-25T00:00:00"
+            },
+            {
+              "allScheduledMissions": [],
+              "missionsProgress": [],
+              "DayCompleted": false,
+              "Date": "2021-12-26T00:00:00"
+            }
+          ],
+          "ScheduledMissions": []
+        }
       }
     },
     {
       "Name": "T",
       "Type": 2,
-      "Calendar": {
-        "Days": [],
-        "ActiveMissions": [
+      "Progress": {
+        "days": [
           {
-            "Goal": 7200,
-            "DayOfWeek": 0,
-            "TimeStart": "08:00:00",
-            "BreakSeconds": 3600,
-            "WeeksBeforeRepeat": 1
+            "Progress": 55,
+            "Date": "2021-12-19T00:00:00"
+          },
+          {
+            "Progress": 173,
+            "Date": "2021-12-26T00:00:00"
           }
-        ]
+        ],
+        "MissionCalendar": {
+          "days": [
+            {
+              "allScheduledMissions": [
+                {
+                  "lastID": 4,
+                  "ID": 1,
+                  "Goal": 100,
+                  "DayOfWeek": 0,
+                  "TimeStart": "18:38:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 60
+                }
+              ],
+              "missionsProgress": [
+                {
+                  "Mission": {
+                    "lastID": 4,
+                    "ID": 1,
+                    "Goal": 100,
+                    "DayOfWeek": 0,
+                    "TimeStart": "18:38:00",
+                    "WeeksBeforeRepeat": 1,
+                    "BreakSeconds": 60
+                  },
+                  "Progress": 55
+                }
+              ],
+              "DayCompleted": true,
+              "Date": "2021-12-19T00:00:00"
+            },
+            {
+              "allScheduledMissions": [
+                {
+                  "lastID": 4,
+                  "ID": 1,
+                  "Goal": 100,
+                  "DayOfWeek": 0,
+                  "TimeStart": "18:38:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 60
+                },
+                {
+                  "lastID": 4,
+                  "ID": 2,
+                  "Goal": 100,
+                  "DayOfWeek": 1,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 4,
+                  "ID": 3,
+                  "Goal": 100,
+                  "DayOfWeek": 2,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 4,
+                  "ID": 4,
+                  "Goal": 100,
+                  "DayOfWeek": 4,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                }
+              ],
+              "missionsProgress": [
+                {
+                  "Mission": {
+                    "lastID": 4,
+                    "ID": 2,
+                    "Goal": 100,
+                    "DayOfWeek": 1,
+                    "TimeStart": "12:00:00",
+                    "WeeksBeforeRepeat": 1,
+                    "BreakSeconds": 0
+                  },
+                  "Progress": 0
+                }
+              ],
+              "DayCompleted": true,
+              "Date": "2021-12-20T00:00:00"
+            },
+            {
+              "allScheduledMissions": [
+                {
+                  "lastID": 4,
+                  "ID": 1,
+                  "Goal": 100,
+                  "DayOfWeek": 0,
+                  "TimeStart": "18:38:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 60
+                },
+                {
+                  "lastID": 4,
+                  "ID": 2,
+                  "Goal": 100,
+                  "DayOfWeek": 1,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 4,
+                  "ID": 3,
+                  "Goal": 100,
+                  "DayOfWeek": 2,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 4,
+                  "ID": 4,
+                  "Goal": 100,
+                  "DayOfWeek": 4,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                }
+              ],
+              "missionsProgress": [
+                {
+                  "Mission": {
+                    "lastID": 4,
+                    "ID": 3,
+                    "Goal": 100,
+                    "DayOfWeek": 2,
+                    "TimeStart": "12:00:00",
+                    "WeeksBeforeRepeat": 1,
+                    "BreakSeconds": 0
+                  },
+                  "Progress": 0
+                }
+              ],
+              "DayCompleted": true,
+              "Date": "2021-12-21T00:00:00"
+            },
+            {
+              "allScheduledMissions": [
+                {
+                  "lastID": 4,
+                  "ID": 1,
+                  "Goal": 100,
+                  "DayOfWeek": 0,
+                  "TimeStart": "18:38:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 60
+                },
+                {
+                  "lastID": 4,
+                  "ID": 2,
+                  "Goal": 100,
+                  "DayOfWeek": 1,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 4,
+                  "ID": 3,
+                  "Goal": 100,
+                  "DayOfWeek": 2,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 4,
+                  "ID": 4,
+                  "Goal": 100,
+                  "DayOfWeek": 4,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                }
+              ],
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2021-12-22T00:00:00"
+            },
+            {
+              "allScheduledMissions": [
+                {
+                  "lastID": 4,
+                  "ID": 1,
+                  "Goal": 100,
+                  "DayOfWeek": 0,
+                  "TimeStart": "18:38:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 60
+                },
+                {
+                  "lastID": 4,
+                  "ID": 2,
+                  "Goal": 100,
+                  "DayOfWeek": 1,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 4,
+                  "ID": 3,
+                  "Goal": 100,
+                  "DayOfWeek": 2,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 4,
+                  "ID": 4,
+                  "Goal": 100,
+                  "DayOfWeek": 4,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                }
+              ],
+              "missionsProgress": [
+                {
+                  "Mission": {
+                    "lastID": 4,
+                    "ID": 4,
+                    "Goal": 100,
+                    "DayOfWeek": 4,
+                    "TimeStart": "12:00:00",
+                    "WeeksBeforeRepeat": 1,
+                    "BreakSeconds": 0
+                  },
+                  "Progress": 0
+                }
+              ],
+              "DayCompleted": true,
+              "Date": "2021-12-23T00:00:00"
+            },
+            {
+              "allScheduledMissions": [
+                {
+                  "lastID": 4,
+                  "ID": 1,
+                  "Goal": 100,
+                  "DayOfWeek": 0,
+                  "TimeStart": "18:38:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 60
+                },
+                {
+                  "lastID": 4,
+                  "ID": 2,
+                  "Goal": 100,
+                  "DayOfWeek": 1,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 4,
+                  "ID": 3,
+                  "Goal": 100,
+                  "DayOfWeek": 2,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 4,
+                  "ID": 4,
+                  "Goal": 100,
+                  "DayOfWeek": 4,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                }
+              ],
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2021-12-24T00:00:00"
+            },
+            {
+              "allScheduledMissions": [
+                {
+                  "lastID": 4,
+                  "ID": 1,
+                  "Goal": 100,
+                  "DayOfWeek": 0,
+                  "TimeStart": "18:38:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 60
+                },
+                {
+                  "lastID": 4,
+                  "ID": 2,
+                  "Goal": 100,
+                  "DayOfWeek": 1,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 4,
+                  "ID": 3,
+                  "Goal": 100,
+                  "DayOfWeek": 2,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 4,
+                  "ID": 4,
+                  "Goal": 100,
+                  "DayOfWeek": 4,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                }
+              ],
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2021-12-25T00:00:00"
+            },
+            {
+              "allScheduledMissions": [
+                {
+                  "lastID": 4,
+                  "ID": 1,
+                  "Goal": 100,
+                  "DayOfWeek": 0,
+                  "TimeStart": "18:38:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 60
+                },
+                {
+                  "lastID": 4,
+                  "ID": 2,
+                  "Goal": 100,
+                  "DayOfWeek": 1,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 4,
+                  "ID": 3,
+                  "Goal": 100,
+                  "DayOfWeek": 2,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 4,
+                  "ID": 4,
+                  "Goal": 100,
+                  "DayOfWeek": 4,
+                  "TimeStart": "12:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                }
+              ],
+              "missionsProgress": [
+                {
+                  "Mission": {
+                    "lastID": 4,
+                    "ID": 1,
+                    "Goal": 100,
+                    "DayOfWeek": 0,
+                    "TimeStart": "18:38:00",
+                    "WeeksBeforeRepeat": 1,
+                    "BreakSeconds": 60
+                  },
+                  "Progress": 115
+                }
+              ],
+              "DayCompleted": false,
+              "Date": "2021-12-26T00:00:00"
+            }
+          ],
+          "ScheduledMissions": [
+            {
+              "lastID": 4,
+              "ID": 1,
+              "Goal": 100,
+              "DayOfWeek": 0,
+              "TimeStart": "18:38:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 60
+            },
+            {
+              "lastID": 4,
+              "ID": 2,
+              "Goal": 100,
+              "DayOfWeek": 1,
+              "TimeStart": "12:00:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            },
+            {
+              "lastID": 4,
+              "ID": 3,
+              "Goal": 100,
+              "DayOfWeek": 2,
+              "TimeStart": "12:00:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            },
+            {
+              "lastID": 4,
+              "ID": 4,
+              "Goal": 100,
+              "DayOfWeek": 4,
+              "TimeStart": "12:00:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            }
+          ]
+        }
       }
     }
   ]

@@ -68,11 +68,11 @@ public class Today : MonoBehaviour
 	{
 		if (item.Upgrade.Type == UpgradeType.Checker)
 		{
-			item.Upgrade.Calendar.ChangeValueBy(DateTime.Today, 1);
+			item.Upgrade.Progress.ChangeProgressBy(DateTime.Today, 1);
 		}
 		if (item.Upgrade.Type == UpgradeType.MultiChecker)
 		{
-			item.Upgrade.Calendar.ChangeValueBy(DateTime.Today, 10);
+			item.Upgrade.Progress.ChangeProgressBy(DateTime.Today, 10);
 		}
 		if (item.Upgrade.Type == UpgradeType.Timer)
 		{

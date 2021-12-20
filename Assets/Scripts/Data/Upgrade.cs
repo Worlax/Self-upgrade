@@ -9,15 +9,14 @@ public enum UpgradeType
 	Checker, MultiChecker, Timer
 }
 
-public class Upgrade : IComparable<Upgrade>
+public class Upgrade : IComparable<Upgrade>, IStaticConstructBeforeLoad
 {
 	[JsonProperty] public string Name { get; private set; }
 	[JsonProperty] public UpgradeType Type { get; private set; }
-	[JsonProperty] public Calendar Calendar { get; private set; } = new Calendar();
+	[JsonProperty] public Progress Progress { get; private set; } = new Progress();
 
-	public static List<Upgrade> AllUpgrades { get; private set; } = new List<Upgrade>();
-
-	[JsonConstructor] Upgrade() { }
+	static List<Upgrade> allUpgrades = new List<Upgrade>();
+	public static IReadOnlyList<Upgrade> AllUpgrades { get => allUpgrades; }
 
 	public static event Action<Upgrade> OnNewUpgradeCreated;
 	public static event Action<string> OnUpgradeDeleted;
@@ -27,7 +26,7 @@ public class Upgrade : IComparable<Upgrade>
 		GeneralFileSystem.OnLoadingBegins += LoadBegins;
 	}
 
-	public static Upgrade CreateUpgrade(string name, UpgradeType type)
+	public static void CreateUpgrade(string name, UpgradeType type)
 	{
 		string formatName = FormatName(name);
 
@@ -39,33 +38,27 @@ public class Upgrade : IComparable<Upgrade>
 				Type = type
 			};
 
-			AllUpgrades.Add(upgrade);
-			AllUpgrades.Sort();
+			allUpgrades.Add(upgrade);
+			allUpgrades.Sort();
 			OnNewUpgradeCreated?.Invoke(upgrade);
-
-			return upgrade;
-		}
-		else
-		{
-			return null;
 		}
 	}
 
 	public static void DeleteUpgrade(string name)
 	{
 		string formatedName = FormatName(name);
-		Upgrade upgradeToDelete = AllUpgrades.Find(obj => obj.Name == formatedName);
+		Upgrade upgradeToDelete = allUpgrades.Find(obj => obj.Name == formatedName);
 
 		if (upgradeToDelete != null)
 		{
-			AllUpgrades.Remove(upgradeToDelete);
+			allUpgrades.Remove(upgradeToDelete);
 			OnUpgradeDeleted?.Invoke(formatedName);
 		}
 	}
 
 	static bool UpgradeAlreadyExists(string name)
 	{
-		return AllUpgrades.Any(x => x.Name == name);
+		return allUpgrades.Any(x => x.Name == name);
 	}
 
 	static string FormatName(string name)
@@ -94,7 +87,7 @@ public class Upgrade : IComparable<Upgrade>
 	// Events
 	static void LoadBegins(AppData data)
 	{
-		AllUpgrades = data.Upgrades;
-		AllUpgrades.Sort();
+		allUpgrades = data.Upgrades;
+		allUpgrades.Sort();
 	}
 }

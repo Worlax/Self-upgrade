@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Preload : Singleton<Preload>
@@ -14,7 +16,6 @@ public class Preload : Singleton<Preload>
 		}
 
 		// Update dropdown display
-		//UpgradesList.Instance.Init();
 		UpgradesList.Instance.UpdateDisplay();
 	}
 }

@@ -1,145 +1,359 @@
 {
-  "dateCreated": "2021-12-14T00:00:00",
-  "totalSeconds": 152,
+  "dateCreated": "2021-12-20T00:00:00",
+  "totalSeconds": 12,
   "Upgrades": [
     {
       "Name": "Autocreated",
       "Type": 2,
-      "Calendar": {
-        "Days": [
+      "Progress": {
+        "days": [
           {
-            "missionsProgress": [
-              {
-                "TimeStart": "12:22:00",
-                "TimeEnd": "12:25:00",
-                "Goal": 60,
-                "Progress": 64
-              }
-            ],
-            "activeMissions": [
-              {
-                "Goal": 60,
-                "DayOfWeek": 1,
-                "TimeStart": "12:22:00",
-                "BreakSeconds": 120,
-                "WeeksBeforeRepeat": 1
-              }
-            ],
-            "Date": "2021-12-13T00:00:00",
-            "Progress": 82
-          }
-        ],
-        "failedGoals": [
-          {
-            "Date": "2021-12-14T00:00:00",
-            "FullDay": false,
-            "FailedMissions": []
-          }
-        ],
-        "ActiveMissions": [
-          {
-            "Goal": 60,
-            "DayOfWeek": 1,
-            "TimeStart": "12:22:00",
-            "BreakSeconds": 120,
-            "WeeksBeforeRepeat": 1
+            "Progress": 5,
+            "Date": "2021-12-19T00:00:00"
           },
           {
-            "Goal": 20,
-            "DayOfWeek": 1,
-            "TimeStart": "12:28:00",
-            "BreakSeconds": 20,
-            "WeeksBeforeRepeat": 1
-          }
-        ]
-      }
-    },
-    {
-      "Name": "T",
-      "Type": 2,
-      "Calendar": {
-        "Days": [
-          {
-            "missionsProgress": [
-              {
-                "TimeStart": "11:30:00",
-                "TimeEnd": "14:30:00",
-                "Goal": 7200,
-                "Progress": 70
-              }
-            ],
-            "activeMissions": [
-              {
-                "Goal": 8500,
-                "DayOfWeek": 0,
-                "TimeStart": "08:00:00",
-                "BreakSeconds": 3600,
-                "WeeksBeforeRepeat": 1
-              },
-              {
-                "Goal": 7200,
-                "DayOfWeek": 0,
-                "TimeStart": "11:30:00",
-                "BreakSeconds": 3600,
-                "WeeksBeforeRepeat": 1
-              },
-              {
-                "Goal": 3600,
-                "DayOfWeek": 1,
-                "TimeStart": "12:00:00",
-                "BreakSeconds": 0,
-                "WeeksBeforeRepeat": 1
-              }
-            ],
-            "Date": "2021-12-13T00:00:00",
-            "Progress": 70
+            "Progress": 7,
+            "Date": "2021-12-20T00:00:00"
           }
         ],
-        "failedGoals": [
-          {
-            "Date": "2021-12-14T00:00:00",
-            "FullDay": false,
-            "FailedMissions": [
-              {
-                "Goal": 20,
-                "DayOfWeek": 2,
-                "TimeStart": "05:05:00",
-                "BreakSeconds": 0,
-                "WeeksBeforeRepeat": 1
-              }
-            ]
-          }
-        ],
-        "ActiveMissions": [
-          {
-            "Goal": 8500,
-            "DayOfWeek": 0,
-            "TimeStart": "08:00:00",
-            "BreakSeconds": 3600,
-            "WeeksBeforeRepeat": 1
-          },
-          {
-            "Goal": 7200,
-            "DayOfWeek": 0,
-            "TimeStart": "11:30:00",
-            "BreakSeconds": 3600,
-            "WeeksBeforeRepeat": 1
-          },
-          {
-            "Goal": 3600,
-            "DayOfWeek": 1,
-            "TimeStart": "12:00:00",
-            "BreakSeconds": 0,
-            "WeeksBeforeRepeat": 1
-          },
-          {
-            "Goal": 20,
-            "DayOfWeek": 2,
-            "TimeStart": "05:05:00",
-            "BreakSeconds": 0,
-            "WeeksBeforeRepeat": 1
-          }
-        ]
+        "MissionCalendar": {
+          "days": [
+            {
+              "allScheduledMissions": [],
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2021-12-19T00:00:00"
+            },
+            {
+              "allScheduledMissions": [
+                {
+                  "lastID": 17,
+                  "ID": 1,
+                  "Goal": 1212,
+                  "DayOfWeek": 0,
+                  "TimeStart": "01:01:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 17,
+                  "ID": 2,
+                  "Goal": 1212,
+                  "DayOfWeek": 0,
+                  "TimeStart": "01:01:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 17,
+                  "ID": 3,
+                  "Goal": 1212,
+                  "DayOfWeek": 0,
+                  "TimeStart": "01:01:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 17,
+                  "ID": 4,
+                  "Goal": 1212,
+                  "DayOfWeek": 0,
+                  "TimeStart": "01:01:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 17,
+                  "ID": 5,
+                  "Goal": 1212,
+                  "DayOfWeek": 0,
+                  "TimeStart": "01:01:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 17,
+                  "ID": 6,
+                  "Goal": 1212,
+                  "DayOfWeek": 0,
+                  "TimeStart": "01:01:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 17,
+                  "ID": 7,
+                  "Goal": 1212,
+                  "DayOfWeek": 1,
+                  "TimeStart": "01:01:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 17,
+                  "ID": 8,
+                  "Goal": 1212,
+                  "DayOfWeek": 1,
+                  "TimeStart": "01:01:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 17,
+                  "ID": 9,
+                  "Goal": 1212,
+                  "DayOfWeek": 2,
+                  "TimeStart": "01:01:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 17,
+                  "ID": 10,
+                  "Goal": 1212,
+                  "DayOfWeek": 2,
+                  "TimeStart": "01:01:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 17,
+                  "ID": 11,
+                  "Goal": 1212,
+                  "DayOfWeek": 2,
+                  "TimeStart": "01:01:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 17,
+                  "ID": 12,
+                  "Goal": 1212,
+                  "DayOfWeek": 2,
+                  "TimeStart": "01:01:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 17,
+                  "ID": 13,
+                  "Goal": 1212,
+                  "DayOfWeek": 2,
+                  "TimeStart": "01:01:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 17,
+                  "ID": 14,
+                  "Goal": 1212,
+                  "DayOfWeek": 2,
+                  "TimeStart": "01:01:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 17,
+                  "ID": 15,
+                  "Goal": 1212,
+                  "DayOfWeek": 3,
+                  "TimeStart": "01:01:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 17,
+                  "ID": 16,
+                  "Goal": 1212,
+                  "DayOfWeek": 3,
+                  "TimeStart": "01:01:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 0
+                },
+                {
+                  "lastID": 17,
+                  "ID": 17,
+                  "Goal": 100,
+                  "DayOfWeek": 1,
+                  "TimeStart": "00:00:00",
+                  "WeeksBeforeRepeat": 1,
+                  "BreakSeconds": 50
+                }
+              ],
+              "missionsProgress": [
+                {
+                  "Mission": {
+                    "lastID": 17,
+                    "ID": 17,
+                    "Goal": 100,
+                    "DayOfWeek": 1,
+                    "TimeStart": "00:00:00",
+                    "WeeksBeforeRepeat": 1,
+                    "BreakSeconds": 50
+                  },
+                  "Progress": 4
+                }
+              ],
+              "DayCompleted": false,
+              "Date": "2021-12-20T00:00:00"
+            }
+          ],
+          "ScheduledMissions": [
+            {
+              "lastID": 17,
+              "ID": 1,
+              "Goal": 1212,
+              "DayOfWeek": 0,
+              "TimeStart": "01:01:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            },
+            {
+              "lastID": 17,
+              "ID": 2,
+              "Goal": 1212,
+              "DayOfWeek": 0,
+              "TimeStart": "01:01:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            },
+            {
+              "lastID": 17,
+              "ID": 3,
+              "Goal": 1212,
+              "DayOfWeek": 0,
+              "TimeStart": "01:01:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            },
+            {
+              "lastID": 17,
+              "ID": 4,
+              "Goal": 1212,
+              "DayOfWeek": 0,
+              "TimeStart": "01:01:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            },
+            {
+              "lastID": 17,
+              "ID": 5,
+              "Goal": 1212,
+              "DayOfWeek": 0,
+              "TimeStart": "01:01:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            },
+            {
+              "lastID": 17,
+              "ID": 6,
+              "Goal": 1212,
+              "DayOfWeek": 0,
+              "TimeStart": "01:01:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            },
+            {
+              "lastID": 17,
+              "ID": 7,
+              "Goal": 1212,
+              "DayOfWeek": 1,
+              "TimeStart": "01:01:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            },
+            {
+              "lastID": 17,
+              "ID": 8,
+              "Goal": 1212,
+              "DayOfWeek": 1,
+              "TimeStart": "01:01:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            },
+            {
+              "lastID": 17,
+              "ID": 9,
+              "Goal": 1212,
+              "DayOfWeek": 2,
+              "TimeStart": "01:01:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            },
+            {
+              "lastID": 17,
+              "ID": 10,
+              "Goal": 1212,
+              "DayOfWeek": 2,
+              "TimeStart": "01:01:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            },
+            {
+              "lastID": 17,
+              "ID": 11,
+              "Goal": 1212,
+              "DayOfWeek": 2,
+              "TimeStart": "01:01:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            },
+            {
+              "lastID": 17,
+              "ID": 12,
+              "Goal": 1212,
+              "DayOfWeek": 2,
+              "TimeStart": "01:01:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            },
+            {
+              "lastID": 17,
+              "ID": 13,
+              "Goal": 1212,
+              "DayOfWeek": 2,
+              "TimeStart": "01:01:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            },
+            {
+              "lastID": 17,
+              "ID": 14,
+              "Goal": 1212,
+              "DayOfWeek": 2,
+              "TimeStart": "01:01:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            },
+            {
+              "lastID": 17,
+              "ID": 15,
+              "Goal": 1212,
+              "DayOfWeek": 3,
+              "TimeStart": "01:01:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            },
+            {
+              "lastID": 17,
+              "ID": 16,
+              "Goal": 1212,
+              "DayOfWeek": 3,
+              "TimeStart": "01:01:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 0
+            },
+            {
+              "lastID": 17,
+              "ID": 17,
+              "Goal": 100,
+              "DayOfWeek": 1,
+              "TimeStart": "00:00:00",
+              "WeeksBeforeRepeat": 1,
+              "BreakSeconds": 50
+            }
+          ]
+        }
       }
     }
   ]

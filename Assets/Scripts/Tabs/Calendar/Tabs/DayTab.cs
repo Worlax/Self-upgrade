@@ -57,7 +57,7 @@ public class DayTab : MonoBehaviour
 
 		foreach (Upgrade upgrade in UpgradesList.Instance.GetActive())
 		{
-			int value = upgrade.Calendar.GetValue(date);
+			int value = upgrade.Progress.GetValue(date);
 
 			if (value > 0)
 			{
@@ -81,7 +81,7 @@ public class DayTab : MonoBehaviour
 	}
 
 	// Events
-	void ActiveUpgradesChanged(List<Upgrade> upgrades)
+	void ActiveUpgradesChanged(IReadOnlyList<Upgrade> upgrades)
 	{
 		if (currentDate != null)
 		{

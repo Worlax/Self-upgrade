@@ -91,7 +91,7 @@ public class UICalendarItem : MonoBehaviour, IHighlightable
 
 	void UpdateHoursVisual(DateTime date)
 	{
-		List<Upgrade> activeUpgrades = UpgradesList.Instance.GetActive();
+		IReadOnlyList<Upgrade> activeUpgrades = UpgradesList.Instance.GetActive();
 		int secondsInMyDate = 0;
 
 		switch (Type)
@@ -102,7 +102,7 @@ public class UICalendarItem : MonoBehaviour, IHighlightable
 
 				foreach (Upgrade upgrade in activeUpgrades)
 				{
-					secondsInMyDate += upgrade.Calendar.GetValueInDiapason(startOfTheYear, endOfTheYear);
+					secondsInMyDate += upgrade.Progress.GetValueInDiapason(startOfTheYear, endOfTheYear);
 				}
 
 				UpdateScheduleVisual(startOfTheYear, endOfTheYear);
@@ -115,7 +115,7 @@ public class UICalendarItem : MonoBehaviour, IHighlightable
 
 				foreach (Upgrade upgrade in activeUpgrades)
 				{
-					secondsInMyDate += upgrade.Calendar.GetValueInDiapason(startOfTheMonth, endOfTheMonth);
+					secondsInMyDate += upgrade.Progress.GetValueInDiapason(startOfTheMonth, endOfTheMonth);
 				}
 
 				UpdateScheduleVisual(startOfTheMonth, endOfTheMonth);
@@ -124,7 +124,7 @@ public class UICalendarItem : MonoBehaviour, IHighlightable
 			case UICalendarItemType.Day:
 				foreach (Upgrade upgrade in activeUpgrades)
 				{
-					secondsInMyDate += upgrade.Calendar.GetValue(date);
+					secondsInMyDate += upgrade.Progress.GetValue(date);
 				}
 
 				UpdateScheduleVisual(date, date);
@@ -136,28 +136,32 @@ public class UICalendarItem : MonoBehaviour, IHighlightable
 
 	void UpdateScheduleVisual(DateTime dateStart, DateTime dateEnd)
 	{
-		List<Upgrade> activeUpgrades = UpgradesList.Instance.GetActive();
+		IReadOnlyList<Upgrade> activeUpgrades = UpgradesList.Instance.GetActive();
 		double schedule = 0;
+		bool haveProgressMissions = false;
 
 		foreach (Upgrade upgrade in activeUpgrades)
 		{
-			schedule += upgrade.Calendar.GetScheduleCompletionInDiapason(dateStart, dateEnd);
+			MissionCalendar calendar = upgrade.Progress.MissionCalendar;
+			if (calendar.IsDiapasonHaveMissionProgress(dateStart, dateEnd))
+			{
+				schedule += calendar.GetScheduleCompletionInDiapason(dateStart, dateEnd);
+				haveProgressMissions = true;
+			}
 		}
 
-		print("From: " + dateStart.ToString("dd") + " To: " + dateEnd.ToString("dd") + " Schedule: " + schedule);
-
-		if (schedule == -1)
+		if (haveProgressMissions)
 		{
-			//schedule
+			schedule = Math.Truncate(schedule * 100) / 100;
+
+			scheduleScroll.size = (float)schedule;
+			scheduleText.text = (schedule * 100).ToString() + "%";
 		}
 		else
 		{
-
+			scheduleScroll.size = 0;
+			scheduleText.text = "";
 		}
-		schedule = Math.Truncate(schedule * 100) / 100;
-
-		scheduleScroll.size = (float)schedule;
-		scheduleText.text = (schedule * 100).ToString() + "%";
 	}
 
 	// Events
@@ -166,7 +170,7 @@ public class UICalendarItem : MonoBehaviour, IHighlightable
 		OnClicked?.Invoke(this);
 	}
 
-	void ActiveUpgradesChanged(List<Upgrade> upgrade)
+	void ActiveUpgradesChanged(IReadOnlyList<Upgrade> upgrade)
 	{
 		UpdateHoursVisual(Date);
 	}

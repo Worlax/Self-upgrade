@@ -40,7 +40,7 @@ public class ScheduleItemConstructor : Singleton<ScheduleItemConstructor>
 
 		foreach (Upgrade upgrade in upgrades)
 		{
-			foreach (Mission mission in upgrade.Calendar.ActiveMissions)
+			foreach (Mission mission in upgrade.Progress.MissionCalendar.ScheduledMissions)
 			{
 				if (mission.DayOfWeek == dayOfWeek)
 				{
