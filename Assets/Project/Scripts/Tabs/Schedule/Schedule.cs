@@ -8,6 +8,7 @@ public class Schedule : MonoBehaviour
 {
 #pragma warning disable 0649
 
+	[SerializeField] Button newSchedule;
 	[SerializeField] RectTransform mondayContent;
 	[SerializeField] RectTransform tuesdayContent;
 	[SerializeField] RectTransform wednesdayContent;
@@ -55,16 +56,24 @@ public class Schedule : MonoBehaviour
 		foreach (Transform transform in sundayContent) Destroy(transform.gameObject);
 	}
 
+	// Events
+	void NewSchedule()
+	{
+		WindowManager.Instance.CreateNewScheduleItemWindow();
+	}
+
 	// Unity
 	private void OnEnable()
 	{
 		FillContent();
 
 		OnEnabled?.Invoke();
+		newSchedule.onClick.AddListener(NewSchedule);
 	}
 
 	private void OnDisable()
 	{
 		OnDisabled?.Invoke();
+		newSchedule.onClick.RemoveListener(NewSchedule);
 	}
 }

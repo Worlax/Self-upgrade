@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradesListOptions : MonoBehaviour
+public class MenuOptions : MonoBehaviour
 {
 #pragma warning disable 0649
+
+	[SerializeField] string headerName;
+	[SerializeField] string headerNameSecond;
 
 	[SerializeField] bool allGlobal;
 	[SerializeField] bool allTimers;
@@ -55,8 +58,18 @@ public class UpgradesListOptions : MonoBehaviour
 		return definedTypesAsAll;
 	}
 
+	void UpdateHeader()
+	{
+		if (headerName != "")
+		{
+			Header.Instance.ChangeHeader(headerName, headerNameSecond);
+		}
+	}
+
+	// Unity
 	private void OnEnable()
 	{
-		UpgradesList.Instance.SetAvaibleTypes(GetDefinedTypes(), GetDefinedTypesAsAll(), allGlobal);
+		UpgradeList.Instance.SetAvaibleTypes(GetDefinedTypes(), GetDefinedTypesAsAll(), allGlobal);
+		UpdateHeader();
 	}
 }

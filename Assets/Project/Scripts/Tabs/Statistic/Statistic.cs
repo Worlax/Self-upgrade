@@ -17,7 +17,7 @@ public class Statistic : MonoBehaviour
 
 	void UpdateDisplay()
 	{
-		IReadOnlyList<Upgrade> activeUpgrades = UpgradesList.Instance.GetActive();
+		IReadOnlyList<Upgrade> activeUpgrades = UpgradeList.Instance.GetActive();
 		DateTime today = DateTime.Today;
 
 		int hToday = 0;
@@ -72,11 +72,11 @@ public class Statistic : MonoBehaviour
 	{
 		UpdateDisplay();
 
-		UpgradesList.Instance.OnActiveUpgradesChanged += ActiveUpgradesChanged;
+		UpgradeList.Instance.OnActiveUpgradesChanged += ActiveUpgradesChanged;
 	}
 
 	private void OnDisable()
 	{
-		UpgradesList.Instance.OnActiveUpgradesChanged -= ActiveUpgradesChanged;
+		UpgradeList.Instance.OnActiveUpgradesChanged -= ActiveUpgradesChanged;
 	}
 }

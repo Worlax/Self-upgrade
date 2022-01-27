@@ -10,6 +10,7 @@ public class MonthTab : MonoBehaviour
 
 #pragma warning restore 0649
 
+	bool showAdjacentMonths = false;
 	const int MAX_ITEMS = 42;
 
 	public static event Action OnEnabled;
@@ -21,9 +22,12 @@ public class MonthTab : MonoBehaviour
 		List<UICalendarItem> createdItems = new List<UICalendarItem>();
 
 		// Previous month
-		List<UICalendarItem> previousMonth = CreateDaysFromPreviousMonth(date);
-		GrayOutItems(previousMonth);
-		createdItems.AddRange(previousMonth);
+		if (showAdjacentMonths)
+		{
+			List<UICalendarItem> previousMonth = CreateDaysFromPreviousMonth(date);
+			GrayOutItems(previousMonth);
+			createdItems.AddRange(previousMonth);
+		}
 
 		// This month
 		for (int i = 1; i <= DateTime.DaysInMonth(date.Year, date.Month); ++i)
@@ -35,9 +39,12 @@ public class MonthTab : MonoBehaviour
 		}
 
 		// Next month
-		List<UICalendarItem> nextMonth = CreateDaysFromNextMonth(date);
-		GrayOutItems(nextMonth);
-		createdItems.AddRange(nextMonth);
+		if (showAdjacentMonths)
+		{
+			List<UICalendarItem> nextMonth = CreateDaysFromNextMonth(date);
+			GrayOutItems(nextMonth);
+			createdItems.AddRange(nextMonth);
+		}
 
 		return createdItems;
 	}

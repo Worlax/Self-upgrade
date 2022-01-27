@@ -19,7 +19,7 @@ public class MissionTimer : MonoBehaviour
 
 	void UpdateDisplay()
 	{
-		Upgrade activeUpgrade = UpgradesList.Instance.GetActive()[0];
+		Upgrade activeUpgrade = UpgradeList.Instance.GetActive()[0];
 		MissionProgress activeMissionProgress = activeUpgrade.Progress.MissionCalendar.GetActiveMission();
 
 		if (activeMissionProgress != null)
@@ -100,7 +100,7 @@ public class MissionTimer : MonoBehaviour
 
 		Stopwatch.OnStopwatchSrart += StopWatchStart;
 		Stopwatch.OnStopwatchStop += StopWatchStop;
-		UpgradesList.Instance.OnActiveUpgradesChanged += ActiveUpgradesChanged;
+		UpgradeList.Instance.OnActiveUpgradesChanged += ActiveUpgradesChanged;
 	}
 
 	private void OnDisable()
@@ -109,6 +109,6 @@ public class MissionTimer : MonoBehaviour
 
 		Stopwatch.OnStopwatchSrart -= StopWatchStart;
 		Stopwatch.OnStopwatchStop -= StopWatchStop;
-		UpgradesList.Instance.OnActiveUpgradesChanged -= ActiveUpgradesChanged;
+		UpgradeList.Instance.OnActiveUpgradesChanged -= ActiveUpgradesChanged;
 	}
 }

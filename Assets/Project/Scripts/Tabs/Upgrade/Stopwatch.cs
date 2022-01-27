@@ -8,20 +8,17 @@ public class Stopwatch : MonoBehaviour
 {
 #pragma warning disable 0649
 
-	[SerializeField] Text upgradeName;
-
-	[SerializeField] Text seconds;
-	[SerializeField] Text minutes;
-	[SerializeField] Text hours;
+	[SerializeField] Text hours1;
+	[SerializeField] Text hours2;
+	[SerializeField] Text minutes1;
+	[SerializeField] Text minutes2;
+	[SerializeField] Text seconds1;
+	[SerializeField] Text seconds2;
 
 	[SerializeField] Button start;
 	[SerializeField] Button stop;
-
-	[SerializeField] Button gotDistractedBy15;
-	[SerializeField] Button gotDistractedBy30;
-	[SerializeField] Button gotDistractedCustom;
-	[SerializeField] InputField gotDistractedInputField;
-	[SerializeField] DisappearingText disappearingText;
+	[SerializeField] Button addMinutes;
+	[SerializeField] Button subtructMinutes;
  
 #pragma warning restore 0649
 
@@ -36,7 +33,7 @@ public class Stopwatch : MonoBehaviour
 	{
 		if (timerIsRunning && UnityEngine.Time.time > nextUpdateSecond)
 		{
-			Upgrade activeUpgrade = UpgradesList.Instance.GetActive()[0];
+			Upgrade activeUpgrade = UpgradeList.Instance.GetActive()[0];
 
 			activeUpgrade.Progress.ChangeProgressBy(DateTime.Today, 1);
 			UpdateDisplay();
@@ -48,34 +45,39 @@ public class Stopwatch : MonoBehaviour
 
 	void UpdateDisplay()
 	{
-		Upgrade activeUpgrade = UpgradesList.Instance.GetActive()[0];
+		Upgrade activeUpgrade = UpgradeList.Instance.GetActive()[0];
 
 		if (activeUpgrade != null)
 		{
-			upgradeName.text = activeUpgrade.Name;
-
 			int sec = activeUpgrade.Progress.GetValue(DateTime.Today);
+			string hoursFirst = GetFirstDigit(TimeConverter.Hours(sec)).ToString();
 
-			seconds.text = FormatNumberForDisplay(TimeConverter.Seconds(sec));
-			minutes.text = FormatNumberForDisplay(TimeConverter.Minutes(sec));
-			hours.text = FormatNumberForDisplay(TimeConverter.Hours(sec));
+			hours1.text = GetFirstDigit(TimeConverter.Hours(sec));
+			hours2.text = GetSecondDigit(TimeConverter.Hours(sec));
+
+			minutes1.text = GetFirstDigit(TimeConverter.Minutes(sec));
+			minutes2.text = GetSecondDigit(TimeConverter.Minutes(sec));
+
+			seconds1.text = GetFirstDigit(TimeConverter.Seconds(sec));
+			seconds2.text = GetSecondDigit(TimeConverter.Seconds(sec));
 		}
 	}
 
-	string FormatNumberForDisplay(int number)
+	string GetFirstDigit(int number)
 	{
-		if (number < 10)
-		{
-			return "0" + number.ToString();
-		}
-		else
-		{
-			return number.ToString();
-		}
+		return (number / 10).ToString();
+	}
+
+	string GetSecondDigit(int number)
+	{
+		return (number - number / 10 * 10).ToString();
 	}
 
 	void StartStopwatch()
 	{
+		start.gameObject.SetActive(false);
+		stop.gameObject.SetActive(true);
+
 		if (!timerIsRunning)
 		{
 			nextUpdateSecond = UnityEngine.Time.time + 1;
@@ -87,6 +89,9 @@ public class Stopwatch : MonoBehaviour
 
 	void StopStopwatch()
 	{
+		start.gameObject.SetActive(true);
+		stop.gameObject.SetActive(false);
+
 		if (timerIsRunning)
 		{
 			timerIsRunning = false;
@@ -95,14 +100,18 @@ public class Stopwatch : MonoBehaviour
 		OnStopwatchStop?.Invoke();
 	}
 
-	void GotDistracted(int minutes)
+	void AddMinutes()
 	{
-		Upgrade activeUpgrade = UpgradesList.Instance.GetActive()[0];
+		StopStopwatch();
+		ChangeMinutesWindow window = WindowManager.Instance.CreateAddMinutesWindow();
+		window.OnDestroy += UpdateDisplay;
+	}
 
-		activeUpgrade.Progress.ChangeProgressBy(DateTime.Today, -minutes * 60);
-		UpdateDisplay();
-
-		disappearingText.Play("-" + minutes);
+	void SubtructMinutes()
+	{
+		StopStopwatch();
+		ChangeMinutesWindow window = WindowManager.Instance.CreateSubtructMinutesWindow();
+		window.OnDestroy += UpdateDisplay;
 	}
 
 	// Events
@@ -112,46 +121,28 @@ public class Stopwatch : MonoBehaviour
 		UpdateDisplay();
 	}
 
-	void GotDistractedBy15()
-	{
-		GotDistracted(15);
-	}
-
-	void GotDistractedBy30()
-	{
-		GotDistracted(30);
-	}
-
-	void GotDistractedCustom()
-	{
-		int distractedBy = Int32.Parse(gotDistractedInputField.text);
-		GotDistracted(distractedBy);
-	}
-
 	// Unity
 	private void OnEnable()
 	{
 		UpdateDisplay();
 
-		UpgradesList.Instance.OnActiveUpgradesChanged += ActiveUpgradesChanged;
+		UpgradeList.Instance.OnActiveUpgradesChanged += ActiveUpgradesChanged;
 
 		start.onClick.AddListener(StartStopwatch);
 		stop.onClick.AddListener(StopStopwatch);
-		gotDistractedBy15.onClick.AddListener(GotDistractedBy15);
-		gotDistractedBy30.onClick.AddListener(GotDistractedBy30);
-		gotDistractedCustom.onClick.AddListener(GotDistractedCustom);
+		addMinutes.onClick.AddListener(AddMinutes);
+		subtructMinutes.onClick.AddListener(SubtructMinutes);
 	}
 
 	private void OnDisable()
 	{
 		StopStopwatch();
 
-		UpgradesList.Instance.OnActiveUpgradesChanged -= ActiveUpgradesChanged;
+		UpgradeList.Instance.OnActiveUpgradesChanged -= ActiveUpgradesChanged;
 
 		start.onClick.RemoveListener(StartStopwatch);
 		stop.onClick.RemoveListener(StopStopwatch);
-		gotDistractedBy15.onClick.RemoveListener(GotDistractedBy15);
-		gotDistractedBy30.onClick.RemoveListener(GotDistractedBy30);
-		gotDistractedCustom.onClick.RemoveListener(GotDistractedCustom);
+		addMinutes.onClick.RemoveListener(AddMinutes);
+		subtructMinutes.onClick.RemoveListener(SubtructMinutes);
 	}
 }

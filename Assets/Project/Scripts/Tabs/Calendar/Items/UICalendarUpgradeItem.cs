@@ -23,7 +23,7 @@ public class UICalendarUpgradeItem : MonoBehaviour
 			{
 				case UpgradeType.Timer:
 					int seconds = upgrade.Progress.GetValue(date);
-					valueText = TimeConverter.TimeString(seconds);
+					valueText = TimeConverter.TimeString(seconds, false);
 					break;
 
 				case UpgradeType.MultiChecker:

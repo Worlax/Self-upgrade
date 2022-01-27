@@ -20,10 +20,10 @@ public class UICalendarItem : MonoBehaviour, IHighlightable
 	[SerializeField] CanvasGroup grayOut;
 	[SerializeField] CanvasGroup highlight;
 	[SerializeField] Color highlightColor;
-	[SerializeField] Image progressFill;
 
-	[SerializeField] Scrollbar scheduleScroll;
-	[SerializeField] Text scheduleText;
+	[SerializeField] Slider progressBar;
+	[SerializeField] Image progressBarHighlight;
+	[SerializeField] Text ProgressBarText;
 
 #pragma warning restore 0649
 
@@ -38,7 +38,7 @@ public class UICalendarItem : MonoBehaviour, IHighlightable
 	{
 		Date = date;
 		Type = type;
-		normalColor = progressFill.color;
+		normalColor = progressBarHighlight.color;
 
 		// Update date visual
 		switch (Type)
@@ -80,18 +80,18 @@ public class UICalendarItem : MonoBehaviour, IHighlightable
 			GrayOut(false);
 
 			highlight.alpha = 0.35f;
-			progressFill.color = highlightColor;
+			progressBarHighlight.color = highlightColor;
 		}
 		else
 		{
 			highlight.alpha = 0f;
-			progressFill.color = normalColor;
+			progressBarHighlight.color = normalColor;
 		}
 	}
 
 	void UpdateHoursVisual(DateTime date)
 	{
-		IReadOnlyList<Upgrade> activeUpgrades = UpgradesList.Instance.GetActive();
+		IReadOnlyList<Upgrade> activeUpgrades = UpgradeList.Instance.GetActive();
 		int secondsInMyDate = 0;
 
 		switch (Type)
@@ -131,12 +131,12 @@ public class UICalendarItem : MonoBehaviour, IHighlightable
 				break;
 		}
 
-		timeText.text = TimeConverter.TimeString(secondsInMyDate);
+		timeText.text = TimeConverter.TimeString(secondsInMyDate, false);
 	}
 
 	void UpdateScheduleVisual(DateTime dateStart, DateTime dateEnd)
 	{
-		IReadOnlyList<Upgrade> activeUpgrades = UpgradesList.Instance.GetActive();
+		IReadOnlyList<Upgrade> activeUpgrades = UpgradeList.Instance.GetActive();
 		double schedule = 0;
 		bool haveProgressMissions = false;
 
@@ -154,13 +154,13 @@ public class UICalendarItem : MonoBehaviour, IHighlightable
 		{
 			schedule = Math.Truncate(schedule * 100) / 100;
 
-			scheduleScroll.size = (float)schedule;
-			scheduleText.text = (schedule * 100).ToString() + "%";
+			progressBar.value = (float)schedule;
+			ProgressBarText.text = (schedule * 100).ToString() + "%";
 		}
 		else
 		{
-			scheduleScroll.size = 0;
-			scheduleText.text = "";
+			progressBar.value = 0;
+			ProgressBarText.text = "";
 		}
 	}
 
@@ -180,13 +180,13 @@ public class UICalendarItem : MonoBehaviour, IHighlightable
 	{
 		selfButton?.onClick.AddListener(SelfButtonClicked);
 
-		UpgradesList.Instance.OnActiveUpgradesChanged += ActiveUpgradesChanged;
+		UpgradeList.Instance.OnActiveUpgradesChanged += ActiveUpgradesChanged;
 	}
 
 	private void OnDisable()
 	{
 		selfButton?.onClick.RemoveListener(SelfButtonClicked);
 
-		UpgradesList.Instance.OnActiveUpgradesChanged -= ActiveUpgradesChanged;
+		UpgradeList.Instance.OnActiveUpgradesChanged -= ActiveUpgradesChanged;
 	}
 }

@@ -9,7 +9,7 @@ public enum UpgradeType
 	Checker, MultiChecker, Timer
 }
 
-public class Upgrade : IComparable<Upgrade>, IStaticConstructBeforeLoad
+public class Upgrade : IComparable<Upgrade>
 {
 	[JsonProperty] public string Name { get; private set; }
 	[JsonProperty] public UpgradeType Type { get; private set; }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UpgradesList : Singleton<UpgradesList>
+public class UpgradeList : Singleton<UpgradeList>
 {
 #pragma warning disable 0649
 
@@ -12,7 +12,7 @@ public class UpgradesList : Singleton<UpgradesList>
 
 #pragma warning restore 0649
 
-	const string ALL_GLOBAL = "<b><color=navy>All</color></b>";
+	const string ALL_GLOBAL = "<b>All</b>";
 	const string ALL_TIMERS = "<b><color=navy>All Timers</color></b>";
 	const string ALL_CHECKERS = "<b><color=navy>All Checkers</color></b>";
 	const string ALL_MULTI_CHECKERS = "<b><color=navy>All MCheckers</color></b>";
@@ -77,6 +77,19 @@ public class UpgradesList : Singleton<UpgradesList>
 
 	public void UpdateDisplay()
 	{
+		if (avaibleTypes.Count == 0
+			&& avaibleTypesAsAll.Count == 0
+			&& allGlobal == false)
+		{
+			dropdown.captionText.text = "";
+			dropdown.enabled = false;
+			return;
+		}
+		else
+		{
+			dropdown.enabled = true;
+		}
+
 		// Dropdown update
 		List<Dropdown.OptionData> newOptions = new List<Dropdown.OptionData>();
 		HashSet<UpgradeType> notYetShowedTypes = new HashSet<UpgradeType>(avaibleTypes);

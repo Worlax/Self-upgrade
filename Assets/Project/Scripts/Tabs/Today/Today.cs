@@ -76,7 +76,7 @@ public class Today : MonoBehaviour
 		}
 		if (item.Upgrade.Type == UpgradeType.Timer)
 		{
-			UpgradesList.Instance.SetActive(item.Upgrade);
+			UpgradeList.Instance.SetActive(item.Upgrade);
 			Menu.GetMenu("Upgrade").OpenMenu();
 		}
 	}

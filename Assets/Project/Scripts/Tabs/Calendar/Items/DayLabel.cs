@@ -2,12 +2,12 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DayItem : MonoBehaviour, IHighlightable
+public class DayLabel : MonoBehaviour, IHighlightable
 {
 #pragma warning disable 0649
 
 	[SerializeField] Text dayText;
-	[SerializeField] Image image;
+	[SerializeField] Image backgroundGfx;
 	[SerializeField] Color baseColor;
 	[SerializeField] Color highlightColor;
 
@@ -27,11 +27,11 @@ public class DayItem : MonoBehaviour, IHighlightable
 	{
 		if (value)
 		{
-			image.color = highlightColor;
+			backgroundGfx.color = highlightColor;
 		}
 		else
 		{
-			image.color = baseColor;
+			backgroundGfx.color = baseColor;
 		}
 	}
 }
