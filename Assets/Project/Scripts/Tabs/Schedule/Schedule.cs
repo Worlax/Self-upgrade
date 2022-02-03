@@ -9,6 +9,21 @@ public class Schedule : MonoBehaviour
 #pragma warning disable 0649
 
 	[SerializeField] Button newSchedule;
+
+	[SerializeField] int daysPerPage;
+	[SerializeField] Button previousDaysPage;
+	[SerializeField] Button nextDaysPage;
+
+	[SerializeField] ToggleGroup toggleGroup;
+
+	[SerializeField] RectTransform monday;
+	[SerializeField] RectTransform tuesday;
+	[SerializeField] RectTransform wednesday;
+	[SerializeField] RectTransform thursday;
+	[SerializeField] RectTransform friday;
+	[SerializeField] RectTransform saturday;
+	[SerializeField] RectTransform sunday;
+
 	[SerializeField] RectTransform mondayContent;
 	[SerializeField] RectTransform tuesdayContent;
 	[SerializeField] RectTransform wednesdayContent;
@@ -19,10 +34,20 @@ public class Schedule : MonoBehaviour
 
 #pragma warning restore 0649
 
+	//public static event Action OnEnabled;
+	//public static event Action OnDisabled;
+	public static event Action<ScheduleItem> OnItemDisplayed;
+
 	public bool ShowBreakTime = true;
 
-	public static event Action OnEnabled;
-	public static event Action OnDisabled;
+	List<RectTransform> days = new List<RectTransform>();
+	List<RectTransform> displayedDays = new List<RectTransform>();
+
+	void UpdateContent()
+	{
+		ClearContent();
+		FillContent();
+	}
 
 	List<ScheduleItem> FillContent()
 	{
@@ -37,12 +62,13 @@ public class Schedule : MonoBehaviour
 		createdItems.AddRange(FillOneDay(DayOfWeek.Saturday, saturdayContent));
 		createdItems.AddRange(FillOneDay(DayOfWeek.Sunday, sundayContent));
 
+		createdItems.ForEach(obj => OnItemDisplayed?.Invoke(obj));
 		return createdItems;
 	}
 
 	List<ScheduleItem> FillOneDay(DayOfWeek dayOfWeek, RectTransform parent)
 	{
-		return ScheduleItemConstructor.Instance.CreateItemsForDayOfTheWeek(dayOfWeek, ShowBreakTime, parent).ToList();
+		return ScheduleItemConstructor.Instance.CreateItemsForDayOfTheWeek(dayOfWeek, ShowBreakTime, parent, toggleGroup).ToList();
 	}
 
 	void ClearContent()
@@ -56,24 +82,115 @@ public class Schedule : MonoBehaviour
 		foreach (Transform transform in sundayContent) Destroy(transform.gameObject);
 	}
 
+	void DisplayDays(int index, int count)
+	{
+		displayedDays.Clear();
+		days.ForEach(obj => obj.gameObject.SetActive(false));
+
+		displayedDays = days.GetPossibleRange(index, count);
+		displayedDays.ForEach(obj => obj.gameObject.SetActive(true));
+
+		UpdateDaysBrowsingButtons();
+	}
+
+	void UpdateDaysBrowsingButtons()
+	{
+		bool firstDayShowed = displayedDays.Contains(days.First());
+		bool lastDayShowed = displayedDays.Contains(days.Last());
+
+		previousDaysPage.interactable = !firstDayShowed;
+		nextDaysPage.interactable = !lastDayShowed;
+	}
+
+	void HighlightToday()
+	{
+		float defaultAlpha = 0.6f;
+		float highlightAlpha = 1f;
+		RectTransform higlightedDay = null;
+
+		switch (DateTime.Today.DayOfWeek)
+		{
+			case DayOfWeek.Monday:
+				higlightedDay = monday;
+				break;
+
+			case DayOfWeek.Tuesday:
+				higlightedDay = tuesday;
+				break;
+
+			case DayOfWeek.Wednesday:
+				higlightedDay = wednesday;
+				break;
+
+			case DayOfWeek.Thursday:
+				higlightedDay = thursday;
+				break;
+
+			case DayOfWeek.Friday:
+				higlightedDay = friday;
+				break;
+
+			case DayOfWeek.Saturday:
+				higlightedDay = saturday;
+				break;
+
+			case DayOfWeek.Sunday:
+				higlightedDay = sunday;
+				break;
+		}
+
+		days.ForEach(obj => obj.GetComponent<CanvasGroup>().alpha = defaultAlpha);
+		higlightedDay.GetComponent<CanvasGroup>().alpha = highlightAlpha;
+	}
+
 	// Events
 	void NewSchedule()
 	{
 		WindowManager.Instance.CreateNewScheduleItemWindow();
 	}
 
+	void PreviousDaysPage()
+	{
+		int firstDisplayedDay = days.IndexOf(displayedDays.First());
+		DisplayDays(firstDisplayedDay - 1, -daysPerPage);
+	}
+
+	void NextDaysPage()
+	{
+		int lastDisplayedDay = days.IndexOf(displayedDays.Last());
+		DisplayDays(lastDisplayedDay + 1, daysPerPage);
+	}
+
 	// Unity
+
+	private void Start()
+	{
+		days = new List<RectTransform>()
+		{
+			monday, tuesday, wednesday, thursday, friday, saturday, sunday
+		};
+
+		HighlightToday();
+		UpdateContent();
+		DisplayDays(0, daysPerPage);
+	}
+
 	private void OnEnable()
 	{
-		FillContent();
-
-		OnEnabled?.Invoke();
+		UpdateContent();
 		newSchedule.onClick.AddListener(NewSchedule);
+		previousDaysPage.onClick.AddListener(PreviousDaysPage);
+		nextDaysPage.onClick.AddListener(NextDaysPage);
+		MissionCalendar.OnMissionAddedToSchedule += UpdateContent;
+		MissionCalendar.OnMissionRemovedFromSchedule += UpdateContent;
 	}
 
 	private void OnDisable()
 	{
-		OnDisabled?.Invoke();
 		newSchedule.onClick.RemoveListener(NewSchedule);
+		previousDaysPage.onClick.RemoveListener(PreviousDaysPage);
+		nextDaysPage.onClick.RemoveListener(NextDaysPage);
+		MissionCalendar.OnMissionAddedToSchedule -= UpdateContent;
+		MissionCalendar.OnMissionRemovedFromSchedule -= UpdateContent;
 	}
 }

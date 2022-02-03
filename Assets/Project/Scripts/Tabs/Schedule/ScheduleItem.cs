@@ -11,19 +11,20 @@ public class ScheduleItem : MonoBehaviour, IComparable<ScheduleItem>
 	[SerializeField] Text upgradeBreak;
 
 	[SerializeField] CanvasGroup grayOut;
-	[SerializeField] Button selfButton;
+	[SerializeField] Toggle selfToggle;
 
 #pragma warning restore 0649
 
 	public Upgrade Upgrade { get; private set; }
 	public Mission Mission { get; private set; }
 
-	public event Action<ScheduleItem> OnClicked;
+	public event Action<ScheduleItem, bool> OnToggleChanged;
 
-	public void Init(Upgrade upgrade, Mission mission)
+	public void Init(Upgrade upgrade, Mission mission, ToggleGroup toggleGroup)
 	{
 		Upgrade = upgrade;
 		Mission = mission;
+		selfToggle.group = toggleGroup;
 
 		upgradeName.text = upgrade.Name;
 
@@ -56,7 +57,7 @@ public class ScheduleItem : MonoBehaviour, IComparable<ScheduleItem>
 
 	public void GrayOut(bool value)
 	{
-		selfButton.interactable = value;
+		selfToggle.interactable = value;
 
 		if (value)
 		{
@@ -76,19 +77,19 @@ public class ScheduleItem : MonoBehaviour, IComparable<ScheduleItem>
 	}
 
 	// Events
-	void SelfButtonClicked()
+	void ToggleValueChanged(bool value)
 	{
-		OnClicked?.Invoke(this);
+		OnToggleChanged?.Invoke(this, value);
 	}
 
 	// Unity
 	private void OnEnable()
 	{
-		selfButton.onClick.AddListener(SelfButtonClicked);
+		selfToggle.onValueChanged.AddListener(ToggleValueChanged);
 	}
 
 	private void OnDisable()
 	{
-		selfButton.onClick.RemoveListener(SelfButtonClicked);
+		selfToggle.onValueChanged.RemoveListener(ToggleValueChanged);
 	}
 }

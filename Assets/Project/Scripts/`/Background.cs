@@ -11,74 +11,74 @@ public class Background : MonoBehaviour
 
 #pragma warning restore 0649
 
-	void DisableAll()
-	{
-		headerDays.gameObject.SetActive(false);
-		headerDaysOfTheWeek.gameObject.SetActive(false);
-		smallBody.gameObject.SetActive(false);
-		bigBody.gameObject.SetActive(false);
-	}
+	//void DisableAll()
+	//{
+	//	headerDays.gameObject.SetActive(false);
+	//	headerDaysOfTheWeek.gameObject.SetActive(false);
+	//	smallBody.gameObject.SetActive(false);
+	//	bigBody.gameObject.SetActive(false);
+	//}
 
-	void ActivateGraphic(params RectTransform[] graphic)
-	{
-		foreach (RectTransform transform in graphic)
-		{
-			transform.gameObject.SetActive(true);
-		}
-	}
+	//void ActivateGraphic(params RectTransform[] graphic)
+	//{
+	//	foreach (RectTransform transform in graphic)
+	//	{
+	//		transform.gameObject.SetActive(true);
+	//	}
+	//}
 
-	// Events
-	void DayTabEnabled()
-	{
-		ActivateGraphic(headerDays, bigBody);
-	}
+	//// Events
+	//void DayTabEnabled()
+	//{
+	//	ActivateGraphic(headerDays, bigBody);
+	//}
 
-	void MonthTabEnabled()
-	{
-		ActivateGraphic(headerDaysOfTheWeek, bigBody);
-	}
+	//void MonthTabEnabled()
+	//{
+	//	ActivateGraphic(headerDaysOfTheWeek, bigBody);
+	//}
 
-	void YerTabEnabled()
-	{
-		ActivateGraphic(smallBody);
-	}
+	//void YerTabEnabled()
+	//{
+	//	ActivateGraphic(smallBody);
+	//}
 
-	void ScheduleTabEnabled()
-	{
-		ActivateGraphic(headerDaysOfTheWeek, bigBody);
-	}
+	//void ScheduleTabEnabled()
+	//{
+	//	ActivateGraphic(headerDaysOfTheWeek, bigBody);
+	//}
 
-	void TabDisabled()
-	{
-		DisableAll();
-	}
+	//void TabDisabled()
+	//{
+	//	DisableAll();
+	//}
 
-	// Unity
-	private void OnEnable()
-	{
-		DisableAll();
+	//// Unity
+	//private void OnEnable()
+	//{
+	//	DisableAll();
 
-		DayTab.OnEnabled += DayTabEnabled;
-		MonthTab.OnEnabled += MonthTabEnabled;
-		YearTab.OnEnabled += YerTabEnabled;
-		Schedule.OnEnabled += ScheduleTabEnabled;
+	//	DayTab.OnEnabled += DayTabEnabled;
+	//	MonthTab.OnEnabled += MonthTabEnabled;
+	//	YearTab.OnEnabled += YerTabEnabled;
+	//	Schedule.OnEnabled += ScheduleTabEnabled;
 
-		DayTab.OnDisabled += TabDisabled;
-		MonthTab.OnDisabled += TabDisabled;
-		YearTab.OnDisabled += TabDisabled;
-		Schedule.OnDisabled += TabDisabled;
-	}
+	//	DayTab.OnDisabled += TabDisabled;
+	//	MonthTab.OnDisabled += TabDisabled;
+	//	YearTab.OnDisabled += TabDisabled;
+	//	Schedule.OnDisabled += TabDisabled;
+	//}
 
-	private void OnDisable()
-	{
-		DayTab.OnEnabled -= DayTabEnabled;
-		MonthTab.OnEnabled -= MonthTabEnabled;
-		YearTab.OnEnabled -= YerTabEnabled;
-		Schedule.OnEnabled -= ScheduleTabEnabled;
+	//private void OnDisable()
+	//{
+	//	DayTab.OnEnabled -= DayTabEnabled;
+	//	MonthTab.OnEnabled -= MonthTabEnabled;
+	//	YearTab.OnEnabled -= YerTabEnabled;
+	//	Schedule.OnEnabled -= ScheduleTabEnabled;
 
-		DayTab.OnDisabled -= TabDisabled;
-		MonthTab.OnDisabled -= TabDisabled;
-		YearTab.OnDisabled -= TabDisabled;
-		Schedule.OnDisabled -= TabDisabled;
-	}
+	//	DayTab.OnDisabled -= TabDisabled;
+	//	MonthTab.OnDisabled -= TabDisabled;
+	//	YearTab.OnDisabled -= TabDisabled;
+	//	Schedule.OnDisabled -= TabDisabled;
+	//}
 }

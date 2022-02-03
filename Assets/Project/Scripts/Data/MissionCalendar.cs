@@ -6,7 +6,10 @@ using UnityEngine;
 
 public class MissionCalendar : Calendar<MissionDay>
 {
-	[JsonProperty] public List<Mission> ScheduledMissions { get; private set; } = new List<Mission>();
+	[JsonProperty(IsReference = true)] public List<Mission> ScheduledMissions { get; private set; } = new List<Mission>();
+
+	public static event Action OnMissionAddedToSchedule;
+	public static event Action OnMissionRemovedFromSchedule;
 
 	public void ChangeProgressBy(DateTime date, int by)
 	{
@@ -26,6 +29,17 @@ public class MissionCalendar : Calendar<MissionDay>
 		if (!IsMissionInSchedule(mission))
 		{
 			ScheduledMissions.Add(mission);
+			OnMissionAddedToSchedule?.Invoke();
+		}
+	}
+
+	public void RemoveMissionFromSchedule(Mission mission)
+	{
+		Update();
+		if (IsMissionInSchedule(mission))
+		{
+			ScheduledMissions.Remove(mission);
+			OnMissionRemovedFromSchedule?.Invoke();
 		}
 	}
 

@@ -11,6 +11,7 @@ public class WindowManager : Singleton<WindowManager>
 	[SerializeField] ChangeMinutesWindow addMinutesWindow;
 	[SerializeField] ChangeMinutesWindow subtructMinutesWindow;
 	[SerializeField] NewScheduleItemWindow newScheduleItemWindow;
+	[SerializeField] NewUpgradeWindow newUpgradeWindow;
 
 #pragma warning restore 0649
 
@@ -27,6 +28,11 @@ public class WindowManager : Singleton<WindowManager>
 	public NewScheduleItemWindow CreateNewScheduleItemWindow()
 	{
 		return InitWindow(newScheduleItemWindow) as NewScheduleItemWindow;
+	}
+
+	public NewUpgradeWindow CreateNewUpgradeWindow()
+	{
+		return InitWindow(newUpgradeWindow) as NewUpgradeWindow;
 	}
 
 	Window InitWindow(Window prefab)

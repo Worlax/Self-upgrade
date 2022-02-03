@@ -31,7 +31,7 @@ public class NewScheduleItemWindow : Window
 		TimeSpan endTime = GetTime(endHours.text, endMinutes.text);
 		TimeSpan breakTime = GetTime(breakHours.text, breakMinutes.text);
 
-		int goalSeconds = (int)(endTime - startTime).TotalSeconds;
+		int goalSeconds = (int)(endTime - startTime - breakTime).TotalSeconds;
 		int breakSeconds = (int)breakTime.TotalSeconds;
 
 		Mission mission = new Mission(goalSeconds, dayOfWeek, startTime, 1, breakSeconds);

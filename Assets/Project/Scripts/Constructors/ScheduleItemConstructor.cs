@@ -15,17 +15,17 @@ public class ScheduleItemConstructor : Singleton<ScheduleItemConstructor>
 #pragma warning restore 0649
 
 	// Creating items in the right order: Checkers, Multichekers, Timers(sorted)
-	public List<ScheduleItem> CreateItemsForDayOfTheWeek(DayOfWeek dayOfWeek, bool ShowBreakTime, Transform parent)
+	public List<ScheduleItem> CreateItemsForDayOfTheWeek(DayOfWeek dayOfWeek, bool ShowBreakTime, Transform parent, ToggleGroup toggleGroup)
 	{
 		List<Upgrade> nonTimers = Upgrade.AllUpgrades.Where(obj => obj.Type != UpgradeType.Timer).ToList();
 		List<Upgrade> timers = Upgrade.AllUpgrades.Where(obj => obj.Type == UpgradeType.Timer).ToList();
 		List<ScheduleItem> createdItems = new List<ScheduleItem>();
 
 		// Non timers go first
-		createdItems.AddRange(CreateItemsForUpgrades(nonTimers, dayOfWeek, ShowBreakTime));
+		createdItems.AddRange(CreateItemsForUpgrades(nonTimers, dayOfWeek, ShowBreakTime, toggleGroup));
 
 		// Timers go last
-		List<ScheduleItem> timerItems = CreateItemsForUpgrades(timers, dayOfWeek, ShowBreakTime);
+		List<ScheduleItem> timerItems = CreateItemsForUpgrades(timers, dayOfWeek, ShowBreakTime, toggleGroup);
 		timerItems.Sort();
 		createdItems.AddRange(timerItems);
 
@@ -34,7 +34,7 @@ public class ScheduleItemConstructor : Singleton<ScheduleItemConstructor>
 		return createdItems;
 	}
 
-	List<ScheduleItem> CreateItemsForUpgrades(List<Upgrade> upgrades, DayOfWeek dayOfWeek, bool ShowBreakTime)
+	List<ScheduleItem> CreateItemsForUpgrades(List<Upgrade> upgrades, DayOfWeek dayOfWeek, bool ShowBreakTime, ToggleGroup toggleGroup)
 	{
 		List<ScheduleItem> createdItems = new List<ScheduleItem>();
 
@@ -44,7 +44,7 @@ public class ScheduleItemConstructor : Singleton<ScheduleItemConstructor>
 			{
 				if (mission.DayOfWeek == dayOfWeek)
 				{
-					createdItems.Add(CreateItem(upgrade, mission, ShowBreakTime));
+					createdItems.Add(CreateItem(upgrade, mission, ShowBreakTime, toggleGroup));
 				}
 			}
 		}
@@ -52,7 +52,7 @@ public class ScheduleItemConstructor : Singleton<ScheduleItemConstructor>
 		return createdItems;
 	}
 
-	ScheduleItem CreateItem(Upgrade upgrade, Mission mission, bool ShowBreakTime)
+	ScheduleItem CreateItem(Upgrade upgrade, Mission mission, bool ShowBreakTime, ToggleGroup toggleGroup)
 	{
 		ScheduleItem item = null;
 
@@ -78,7 +78,7 @@ public class ScheduleItemConstructor : Singleton<ScheduleItemConstructor>
 				break;
 		}
 
-		item.Init(upgrade, mission);
+		item.Init(upgrade, mission, toggleGroup);
 
 		return item;
 	}

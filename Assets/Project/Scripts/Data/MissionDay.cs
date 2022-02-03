@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class MissionDay : Day
 {
-	[JsonProperty] IEnumerable<Mission> allScheduledMissions = new List<Mission>();
+	[JsonProperty(IsReference = true)] IEnumerable<Mission> allScheduledMissions = new List<Mission>();
 	[JsonProperty] List<MissionProgress> missionsProgress = new List<MissionProgress>();
 
 	[JsonProperty] bool DayCompleted;
@@ -80,6 +80,7 @@ public class MissionDay : Day
 	void AddNewMissionsToProgress()
 	{
 		IEnumerable<Mission> todayScheduledMissions = allScheduledMissions.Where(obj => obj.DayOfWeek == Date.DayOfWeek);
+
 		foreach (Mission scheduledMission in todayScheduledMissions)
 		{
 			if (!IsMissionInProgress(scheduledMission) && IsMissionStarted(scheduledMission))
