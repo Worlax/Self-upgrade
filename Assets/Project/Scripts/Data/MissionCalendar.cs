@@ -49,14 +49,85 @@ public class MissionCalendar : Calendar<MissionDay>
 		return GetDay(DateTime.Today).GetActiveMission();
 	}
 
+	public int GetGoalInDiapason(DateTime dateStart, DateTime dateEnd)
+	{
+		Update();
+		if (dateEnd < dateStart) throw new Exception("dateEnd happens before dateStart.");
+
+		DateTime currentDate = RemoveTimeFromDate(dateStart);
+		DateTime lastDate = RemoveTimeFromDate(dateEnd);
+		int goal = 0;
+
+		while (currentDate <= lastDate)
+		{
+			MissionDay day = GetDay(currentDate);
+
+			if (day != null)
+			{
+				goal += day.GetGoal();
+			}
+
+			currentDate = currentDate.AddDays(1);
+		}
+
+		return goal;
+	}
+
+	public int GetProgressInDiapason(DateTime dateStart, DateTime dateEnd)
+	{
+		Update();
+		if (dateEnd < dateStart) throw new Exception("dateEnd happens before dateStart.");
+
+		DateTime currentDate = RemoveTimeFromDate(dateStart);
+		DateTime lastDate = RemoveTimeFromDate(dateEnd);
+		int progress = 0;
+
+		while (currentDate <= lastDate)
+		{
+			MissionDay day = GetDay(currentDate);
+
+			if (day != null)
+			{
+				progress += day.GetProgress();
+			}
+
+			currentDate = currentDate.AddDays(1);
+		}
+
+		return progress;
+	}
+
+	public int GetFullyCompletedProgressInDiapason(DateTime dateStart, DateTime dateEnd)
+	{
+		Update();
+		if (dateEnd < dateStart) throw new Exception("dateEnd happens before dateStart.");
+
+		DateTime currentDate = RemoveTimeFromDate(dateStart);
+		DateTime lastDate = RemoveTimeFromDate(dateEnd);
+		int progress = 0;
+
+		while (currentDate <= lastDate)
+		{
+			MissionDay day = GetDay(currentDate);
+
+			if (day != null)
+			{
+				progress += day.GetFullyCompletedProgress();
+			}
+
+			currentDate = currentDate.AddDays(1);
+		}
+
+		return progress;
+	}
+
 	public double GetScheduleCompletionInDiapason(DateTime dateStart, DateTime dateEnd)
 	{
 		Update();
 		if (dateEnd < dateStart) throw new Exception("dateEnd happens before dateStart.");
 
-		dateStart = RemoveTimeFromDate(dateStart);
+		DateTime currentDate = RemoveTimeFromDate(dateStart);
 		dateEnd = RemoveTimeFromDate(dateEnd);
-		DateTime currentDate = dateStart;
 		double scheduleCompletion = 0;
 		int days = 0;
 

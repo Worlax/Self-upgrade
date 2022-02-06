@@ -57,6 +57,45 @@ public class MissionDay : Day
 		return missions == 0 ? 0 : schedule / missions;
 	}
 
+	public int GetGoal()
+	{
+		int goal = 0;
+
+		foreach (MissionProgress missionProgress in missionsProgress)
+		{
+			goal += missionProgress.Mission.Goal;
+		}
+
+		return goal;
+	}
+
+	public int GetProgress()
+	{
+		int progress = 0;
+
+		foreach (MissionProgress missionProgress in missionsProgress)
+		{
+			progress += missionProgress.Progress;
+		}
+
+		return progress;
+	}
+
+	public int GetFullyCompletedProgress()
+	{
+		int progress = 0;
+
+		foreach (MissionProgress missionProgress in missionsProgress)
+		{
+			if (missionProgress.Progress >= missionProgress.Mission.Goal)
+			{
+				progress += missionProgress.Progress;
+			}
+		}
+
+		return progress;
+	}
+
 	public bool HaveProgressMissions()
 	{
 		Update();

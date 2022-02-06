@@ -1,6 +1,6 @@
 {
-  "dateCreated": "2022-01-27T00:00:00",
-  "totalSeconds": 192600,
+  "dateCreated": "2022-02-06T00:00:00",
+  "totalSeconds": 212400,
   "Upgrades": [
     {
       "Name": "English",
@@ -54,6 +54,10 @@
           {
             "Progress": 9000,
             "Date": "2022-01-25T00:00:00"
+          },
+          {
+            "Progress": 14400,
+            "Date": "2022-02-05T00:00:00"
           }
         ],
         "MissionCalendar": {
@@ -2960,6 +2964,107 @@
               "missionsProgress": [],
               "DayCompleted": false,
               "Date": "2022-01-26T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "1"
+              },
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2022-01-27T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "1"
+              },
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2022-01-28T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "1"
+              },
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2022-01-29T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "1"
+              },
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2022-01-30T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "1"
+              },
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2022-01-31T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "1"
+              },
+              "missionsProgress": [
+                {
+                  "Mission": {
+                    "lastID": 11,
+                    "ID": 10,
+                    "Goal": 14400,
+                    "DayOfWeek": 2,
+                    "TimeStart": "00:00:00",
+                    "WeeksBeforeRepeat": 1,
+                    "BreakSeconds": 3600
+                  },
+                  "Progress": 0
+                }
+              ],
+              "DayCompleted": true,
+              "Date": "2022-02-01T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "1"
+              },
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2022-02-02T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "1"
+              },
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2022-02-03T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "1"
+              },
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2022-02-04T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "1"
+              },
+              "missionsProgress": [],
+              "DayCompleted": false,
+              "Date": "2022-02-05T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "1"
+              },
+              "missionsProgress": [],
+              "DayCompleted": false,
+              "Date": "2022-02-06T00:00:00"
             }
           ],
           "ScheduledMissions": {
@@ -3012,6 +3117,10 @@
           {
             "Progress": 15000,
             "Date": "2022-01-27T00:00:00"
+          },
+          {
+            "Progress": 5400,
+            "Date": "2022-02-06T00:00:00"
           }
         ],
         "MissionCalendar": {
@@ -5926,6 +6035,99 @@
               "missionsProgress": [],
               "DayCompleted": false,
               "Date": "2022-01-27T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "2"
+              },
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2022-01-28T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "2"
+              },
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2022-01-29T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "2"
+              },
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2022-01-30T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "2"
+              },
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2022-01-31T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "2"
+              },
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2022-02-01T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "2"
+              },
+              "missionsProgress": [
+                {
+                  "Mission": {
+                    "lastID": 11,
+                    "ID": 11,
+                    "Goal": 3600,
+                    "DayOfWeek": 3,
+                    "TimeStart": "00:00:00",
+                    "WeeksBeforeRepeat": 1,
+                    "BreakSeconds": 3600
+                  },
+                  "Progress": 0
+                }
+              ],
+              "DayCompleted": true,
+              "Date": "2022-02-02T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "2"
+              },
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2022-02-03T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "2"
+              },
+              "missionsProgress": [],
+              "DayCompleted": true,
+              "Date": "2022-02-04T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "2"
+              },
+              "missionsProgress": [],
+              "DayCompleted": false,
+              "Date": "2022-02-05T00:00:00"
+            },
+            {
+              "allScheduledMissions": {
+                "$ref": "2"
+              },
+              "missionsProgress": [],
+              "DayCompleted": false,
+              "Date": "2022-02-06T00:00:00"
             }
           ],
           "ScheduledMissions": {

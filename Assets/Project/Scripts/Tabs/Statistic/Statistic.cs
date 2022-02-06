@@ -7,6 +7,14 @@ public class Statistic : MonoBehaviour
 {
 #pragma warning disable 0649
 
+	[SerializeField] Dropdown statisticRange;
+
+	[SerializeField] Toggle calculateFromMonday;
+	[SerializeField] Toggle dayAverage;
+	[SerializeField] Toggle compareToWeekAverage;
+
+	//
+
 	[SerializeField] Text hoursToday;
 	[SerializeField] Text hoursThisWeek;
 	[SerializeField] Text hoursThisMonth;
@@ -14,6 +22,11 @@ public class Statistic : MonoBehaviour
 	[SerializeField] Text hoursTotal;
 
 #pragma warning restore 0649
+
+	enum StatisticRange
+	{
+		Day, Week, Year
+	}
 
 	void UpdateDisplay()
 	{

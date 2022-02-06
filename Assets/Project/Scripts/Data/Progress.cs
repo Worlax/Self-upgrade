@@ -47,6 +47,11 @@ public class Progress : Calendar<ProgressDay>
 		MissionCalendar.ChangeProgressBy(date, value);
 	}
 
+	public DateTime GetFirstRecordedDay()
+	{
+		return days.Count > 0 ? days[0].Date : DateTime.Today;
+	}
+
 	void CreateDayIfDosentExists(DateTime date)
 	{
 		date = RemoveTimeFromDate(date);
