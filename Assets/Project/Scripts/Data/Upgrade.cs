@@ -30,8 +30,12 @@ public class Upgrade : IComparable<Upgrade>
 	{
 		string formatName = FormatName(name);
 
+		Log.Instance.Print(typeof(Upgrade), "Creating " + name + " upgrade.");
+
 		if (!UpgradeAlreadyExists(formatName))
 		{
+			Log.Instance.Print(typeof(Upgrade), name + " do not exists.");
+
 			Upgrade upgrade = new Upgrade()
 			{
 				Name = formatName,
@@ -42,6 +46,12 @@ public class Upgrade : IComparable<Upgrade>
 			allUpgrades.Sort();
 			OnNewUpgradeCreated?.Invoke(upgrade);
 		}
+		else
+		{
+			Log.Instance.Print(typeof(Upgrade), name + " already exists.");
+		}
+
+		Log.Instance.Print(typeof(Upgrade), "Done. Now there is " + Upgrade.allUpgrades.Count + " upgrades.");
 	}
 
 	public static void DeleteUpgrade(string name)

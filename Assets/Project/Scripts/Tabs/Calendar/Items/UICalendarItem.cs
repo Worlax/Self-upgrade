@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -48,7 +49,7 @@ public class UICalendarItem : MonoBehaviour, IHighlightable
 				break;
 
 			case UICalendarItemType.Month:
-				dateText.text = Date.ToString("MMM");
+				dateText.text = Date.ToString("MMM", new CultureInfo("en"));
 				break;
 
 			case UICalendarItemType.Day:

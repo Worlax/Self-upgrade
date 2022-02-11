@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class InputLimit : MonoBehaviour, IDeselectHandler
+public class InputLimit : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
 #pragma warning disable 0649
 
@@ -96,6 +96,11 @@ public class InputLimit : MonoBehaviour, IDeselectHandler
 				}
 				break;
 		}
+	}
+
+	public void OnSelect(BaseEventData eventData)
+	{
+		inputField.text = "";
 	}
 
 	public void OnDeselect(BaseEventData eventData)

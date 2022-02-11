@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -200,8 +201,9 @@ public class StatisticInfo : MonoBehaviour
 
 	void DisplayScope(StatisticData data)
 	{
-		string from = data.DateStart.ToString("dd MMM");
-		string to = data.DateEnd.ToString("dd MMM");
+		CultureInfo culture = new CultureInfo("en");
+		string from = data.DateStart.ToString("dd MMM", culture);
+		string to = data.DateEnd.ToString("dd MMM", culture);
 		string fullText;
 
 		if (settings.StatisticScope.GetActive() == StatisticScopeDropdown.StatisticRange.Day)

@@ -8,6 +8,7 @@ public class Settings : MonoBehaviour
 
 	[SerializeField] Button newUpgrade;
 	[SerializeField] RectTransform content;
+	[SerializeField] ToggleGroup toggleGroup;
 
 #pragma warning restore 0649
 
@@ -24,6 +25,7 @@ public class Settings : MonoBehaviour
 		foreach (Upgrade upgrade in Upgrade.AllUpgrades)
 		{
 			SettingsItem item = SettingsItemConstructor.Instance.CreateSettingsItem(upgrade, content);
+			item.GetComponentInChildren<Toggle>().group = toggleGroup;
 			OnItemDisplayed?.Invoke(item);
 		}
 	}

@@ -22,6 +22,7 @@ public static class GeneralFileSystem
 
 	public static void LoadData()
 	{
+		Log.Instance.Print(typeof(GeneralFileSystem), "LoadData.");
 		Load(PathFinder.SaveFile());
 	}
 
@@ -32,12 +33,19 @@ public static class GeneralFileSystem
 
 	static void Load(string filePath)
 	{
+		Log.Instance.Print(typeof(GeneralFileSystem), "Load.");
+		Log.Instance.Print(typeof(GeneralFileSystem), "File path: " + filePath);
 		if (File.Exists(filePath))
 		{
+			Log.Instance.Print(typeof(GeneralFileSystem), "File exists!");
 			string json = File.ReadAllText(filePath);
 			AppData data = JsonConvert.DeserializeObject<AppData>(json);
 
 			OnLoadingBegins?.Invoke(data);
+		}
+		else
+		{
+			Log.Instance.Print(typeof(GeneralFileSystem), "File not found.");
 		}
 	}
 }

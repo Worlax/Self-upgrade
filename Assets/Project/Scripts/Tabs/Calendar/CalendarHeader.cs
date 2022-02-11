@@ -28,15 +28,15 @@ public class CalendarHeader : MonoBehaviour
 		switch (type)
 		{
 			case UICalendarItemType.Year:
-				dateInText.text = "";
+				//dateInText.text = "";
 				break;
 
 			case UICalendarItemType.Month:
-				dateInText.text = date.ToString("yyyy");
+				//dateInText.text = date.ToString("yyyy");
 				break;
 
 			case UICalendarItemType.Day:
-				dateInText.text = date.ToString("yyyy MMMM");
+				//dateInText.text = date.ToString("yyyy MMMM");
 				break;
 		}
 	}
@@ -48,6 +48,6 @@ public class CalendarHeader : MonoBehaviour
 			Destroy(obj.gameObject);
 		}
 
-		dateInText.text = "";
+		//dateInText.text = "";
 	}
 }

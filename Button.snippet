@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippet Format="1.0.0" xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<Header>
+		<Title>Unity button event</Title>
+		<Author>Worlax</Author>
+		<Shortcut>bev</Shortcut>
+		<SnippetTypes>
+			<SnippetType>Expansion</SnippetType>
+		</SnippetTypes>
+	</Header>
+	<Snippet>
+		<Declarations>
+			<Literal>
+				<ID>buttonName</ID>
+				<Default>button</Default>
+			</Literal>
+			<Literal>
+				<ID>functionName</ID>
+				<Default>Event</Default>
+			</Literal>
+		</Declarations>
+		<Code Language="CSharp">
+			<![CDATA[#pragma warning disable 0649
+
+	[SerializeField] Button $buttonName$;
+
+#pragma warning restore 0649
+
+
+
+	// Event
+	void $functionName$()
+	{
+		$end$
+	}
+
+	// Unity
+	private void OnEnable()
+	{
+		$buttonName$.onClick.AddListener($functionName$);
+	}
+
+	private void OnDisable()
+	{
+		$buttonName$.onClick.AddListener($functionName$);
+	}]]>
+		</Code>
+		<Imports>
+			<Import>
+				<Namespace>UnityEngine</Namespace>
+			</Import>
+			<Import>
+				<Namespace>UnityEngine.UI</Namespace>
+			</Import>
+		</Imports>
+	</Snippet>
+</CodeSnippet>

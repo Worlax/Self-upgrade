@@ -11,14 +11,6 @@ public class ChainInput : MonoBehaviour
 
 #pragma warning restore 0649
 
-	private void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
-		{
-			IterateChain();
-		}
-	}
-
 	void IterateChain()
 	{
 		GameObject selectedObject = CurrentEventSystem.Instance.EventSystem.currentSelectedGameObject;
@@ -53,6 +45,15 @@ public class ChainInput : MonoBehaviour
 		int currentIndex = inputLimits.IndexOf(inputLimit);
 
 		return inputLimits.Count > currentIndex + 1 ? inputLimits[currentIndex + 1] : null;
+	}
+
+	// Unity
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+		{
+			IterateChain();
+		}
 	}
 
 	private void OnEnable()
