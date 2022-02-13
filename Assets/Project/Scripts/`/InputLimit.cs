@@ -3,15 +3,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class InputLimit : MonoBehaviour, ISelectHandler, IDeselectHandler
+public class InputLimit : MonoBehaviour, ISelectHandler
 {
 #pragma warning disable 0649
 
 	[SerializeField] InputField inputField;
+	[SerializeField] InputLimit nextChain;
 	[SerializeField] [Min(0)] int min;
 	[SerializeField] [Min(0)] int max;
 	[SerializeField] FormatType formatType = FormatType.MaxZeros;
-
 
 #pragma warning restore 0649
 
@@ -23,42 +23,66 @@ public class InputLimit : MonoBehaviour, ISelectHandler, IDeselectHandler
 		None, OneZero, MaxZeros
 	}
 
-	public void Select()
+	public void Activate() => inputField.ActivateInputField();
+	public void Deactivate() => inputField.DeactivateInputField();
+
+	void FormatOnSelect()
 	{
-		inputField.Select();
+		inputField.SetTextWithoutNotify("");
 	}
 
-	public void Deselect()
+	void FormatEditEnd()
 	{
-		if (!CurrentEventSystem.Instance.EventSystem.alreadySelecting)
+		string formattedText = inputField.text;
+
+		switch (formatType)
 		{
-			CurrentEventSystem.Instance.EventSystem.SetSelectedGameObject(null);
+			case FormatType.OneZero:
+				if (inputField.text.Length == 0)
+				{
+					formattedText = "0";
+				}
+				break;
+
+			case FormatType.MaxZeros:
+				formattedText = FillZerosToReachMaxLength(formattedText, max.ToString().Length);
+				break;
 		}
+
+		inputField.SetTextWithoutNotify(formattedText);
 	}
 
-	void Clamp(string value)
+	void FormatOnEdit(string value)
 	{
-		if (changeInProcess) return;
-		changeInProcess = true;
-
 		value = value.Replace("-", "");
 
 		if (Int32.TryParse(value, out int intValue))
 		{
 			int clampedNumber = Mathf.Clamp(intValue, min, max);
-			inputField.text = GetZerosBeforNumber(value) + clampedNumber.ToString();
+			value = GetZerosBeforNumber(value) + clampedNumber.ToString();
+			
 		}
 		else
 		{
-			inputField.text = "";
+			value = "";
 		}
+
+		inputField.SetTextWithoutNotify(value);
 
 		if (inputField.text.Length == max.ToString().Length)
 		{
 			OnDigitLimitReached?.Invoke(this);
 		}
+	}
 
-		changeInProcess = false;
+	string FillZerosToReachMaxLength(string text, int maxLength)
+	{
+		while (text.Length < maxLength)
+		{
+			text = "0" + text;
+		}
+
+		return text;
 	}
 
 	string GetZerosBeforNumber(string value)
@@ -74,48 +98,38 @@ public class InputLimit : MonoBehaviour, ISelectHandler, IDeselectHandler
 		{
 			zeros = zeros.Remove(0, 1);
 		}
-
 		return zeros;
 	}
 
-	void FormatInput()
+	void IterateChain()
 	{
-		switch (formatType)
+		if (nextChain != null)
 		{
-			case FormatType.OneZero:
-				if (inputField.text.Length == 0)
-				{
-					inputField.text = "0";
-				}
-				break;
-
-			case FormatType.MaxZeros:
-				while (inputField.text.Length < max.ToString().Length)
-				{
-					inputField.text = "0" + inputField.text;
-				}
-				break;
+			if (inputField.touchScreenKeyboard != null && inputField.touchScreenKeyboard.status == TouchScreenKeyboard.Status.Done)
+			{
+				nextChain.Activate();
+			}
 		}
 	}
 
-	public void OnSelect(BaseEventData eventData)
+	// Event
+	public void OnSelect(BaseEventData eventData) => FormatOnSelect();
+	void EditEnd(string call)
 	{
-		inputField.text = "";
-	}
-
-	public void OnDeselect(BaseEventData eventData)
-	{
-		FormatInput();
+		FormatEditEnd();
+		IterateChain();
 	}
 
 	// Unity
 	private void OnEnable()
 	{
-		inputField.onValueChanged.AddListener(Clamp);
+		inputField.onValueChanged.AddListener(FormatOnEdit);
+		inputField.onEndEdit.AddListener(EditEnd);
 	}
 
 	private void OnDisable()
 	{
-		inputField.onValueChanged.RemoveListener(Clamp);
+		inputField.onValueChanged.RemoveListener(FormatOnEdit);
+		inputField.onEndEdit.RemoveListener(EditEnd);
 	}
 }

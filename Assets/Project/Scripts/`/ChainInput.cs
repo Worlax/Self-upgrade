@@ -1,7 +1,6 @@
-using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ChainInput : MonoBehaviour
 {
@@ -13,17 +12,29 @@ public class ChainInput : MonoBehaviour
 
 	void IterateChain()
 	{
+		InputLimit focusedInput = GetActiveElement();
+
+		if (focusedInput != null)
+		{
+			IterateChain(focusedInput);
+		}
+	}
+
+	InputLimit GetActiveElement()
+	{
 		GameObject selectedObject = CurrentEventSystem.Instance.EventSystem.currentSelectedGameObject;
 
 		if (selectedObject != null)
 		{
-			InputLimit inputLimit = selectedObject.GetComponent<InputLimit>();
+			InputLimit selectedElement = selectedObject.GetComponent<InputLimit>();
 
-			if (inputLimit != null && inputLimits.Contains(inputLimit))
+			if (selectedElement != null && inputLimits.Contains(selectedElement))
 			{
-				IterateChain(inputLimit);
+				return selectedElement;
 			}
 		}
+
+		return null;
 	}
 
 	void IterateChain(InputLimit inputLimit)
@@ -32,11 +43,11 @@ public class ChainInput : MonoBehaviour
 
 		if (nextChain != null)
 		{
-			nextChain.Select();
+			nextChain.Activate();
 		}
 		else
 		{
-			inputLimit.Deselect();
+			inputLimit.Deactivate();
 		}
 	}
 

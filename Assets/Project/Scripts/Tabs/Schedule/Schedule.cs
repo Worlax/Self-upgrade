@@ -11,8 +11,8 @@ public class Schedule : MonoBehaviour
 	[SerializeField] Button newSchedule;
 
 	[SerializeField] int daysPerPage;
-	[SerializeField] Button previousDaysPage;
-	[SerializeField] Button nextDaysPage;
+	//[SerializeField] Button previousDaysPage;
+	//[SerializeField] Button nextDaysPage;
 
 	[SerializeField] ToggleGroup toggleGroup;
 
@@ -32,6 +32,17 @@ public class Schedule : MonoBehaviour
 	[SerializeField] RectTransform saturdayContent;
 	[SerializeField] RectTransform sundayContent;
 
+	[SerializeField] Color labelColor;
+	[SerializeField] Color todayLabelColor;
+
+	[SerializeField] Image mondayLabel;
+	[SerializeField] Image tuesdayLabel;
+	[SerializeField] Image wednesdayLabel;
+	[SerializeField] Image thursdayLabel;
+	[SerializeField] Image fridayLabel;
+	[SerializeField] Image saturdayLabel;
+	[SerializeField] Image sundayLabel;
+
 #pragma warning restore 0649
 
 	//public static event Action OnEnabled;
@@ -41,6 +52,7 @@ public class Schedule : MonoBehaviour
 	public bool ShowBreakTime = true;
 
 	List<RectTransform> days = new List<RectTransform>();
+	List<Image> labels = new List<Image>();
 	List<RectTransform> displayedDays = new List<RectTransform>();
 
 	void UpdateContent()
@@ -98,49 +110,47 @@ public class Schedule : MonoBehaviour
 		bool firstDayShowed = displayedDays.Contains(days.First());
 		bool lastDayShowed = displayedDays.Contains(days.Last());
 
-		previousDaysPage.interactable = !firstDayShowed;
-		nextDaysPage.interactable = !lastDayShowed;
+		//previousDaysPage.interactable = !firstDayShowed;
+		//nextDaysPage.interactable = !lastDayShowed;
 	}
 
 	void HighlightToday()
 	{
-		float defaultAlpha = 0.6f;
-		float highlightAlpha = 1f;
-		RectTransform higlightedDay = null;
+		Image higlightedLabel = null;
 
 		switch (DateTime.Today.DayOfWeek)
 		{
 			case DayOfWeek.Monday:
-				higlightedDay = monday;
+				higlightedLabel = mondayLabel;
 				break;
 
 			case DayOfWeek.Tuesday:
-				higlightedDay = tuesday;
+				higlightedLabel = tuesdayLabel;
 				break;
 
 			case DayOfWeek.Wednesday:
-				higlightedDay = wednesday;
+				higlightedLabel = wednesdayLabel;
 				break;
 
 			case DayOfWeek.Thursday:
-				higlightedDay = thursday;
+				higlightedLabel = thursdayLabel;
 				break;
 
 			case DayOfWeek.Friday:
-				higlightedDay = friday;
+				higlightedLabel = fridayLabel;
 				break;
 
 			case DayOfWeek.Saturday:
-				higlightedDay = saturday;
+				higlightedLabel = saturdayLabel;
 				break;
 
 			case DayOfWeek.Sunday:
-				higlightedDay = sunday;
+				higlightedLabel = sundayLabel;
 				break;
 		}
 
-		days.ForEach(obj => obj.GetComponent<CanvasGroup>().alpha = defaultAlpha);
-		higlightedDay.GetComponent<CanvasGroup>().alpha = highlightAlpha;
+		labels.ForEach(obj => obj.color = labelColor);
+		higlightedLabel.color = todayLabelColor;
 	}
 
 	// Events
@@ -170,6 +180,11 @@ public class Schedule : MonoBehaviour
 			monday, tuesday, wednesday, thursday, friday, saturday, sunday
 		};
 
+		labels = new List<Image>()
+		{
+			mondayLabel, tuesdayLabel, wednesdayLabel, thursdayLabel, fridayLabel, saturdayLabel, sundayLabel
+		};
+
 		HighlightToday();
 		UpdateContent();
 		DisplayDays(0, daysPerPage);
@@ -179,8 +194,8 @@ public class Schedule : MonoBehaviour
 	{
 		UpdateContent();
 		newSchedule.onClick.AddListener(NewSchedule);
-		previousDaysPage.onClick.AddListener(PreviousDaysPage);
-		nextDaysPage.onClick.AddListener(NextDaysPage);
+		//previousDaysPage.onClick.AddListener(PreviousDaysPage);
+		//nextDaysPage.onClick.AddListener(NextDaysPage);
 		MissionCalendar.OnMissionAddedToSchedule += UpdateContent;
 		MissionCalendar.OnMissionRemovedFromSchedule += UpdateContent;
 	}
@@ -188,8 +203,8 @@ public class Schedule : MonoBehaviour
 	private void OnDisable()
 	{
 		newSchedule.onClick.RemoveListener(NewSchedule);
-		previousDaysPage.onClick.RemoveListener(PreviousDaysPage);
-		nextDaysPage.onClick.RemoveListener(NextDaysPage);
+		//previousDaysPage.onClick.RemoveListener(PreviousDaysPage);
+		//nextDaysPage.onClick.RemoveListener(NextDaysPage);
 		MissionCalendar.OnMissionAddedToSchedule -= UpdateContent;
 		MissionCalendar.OnMissionRemovedFromSchedule -= UpdateContent;
 	}

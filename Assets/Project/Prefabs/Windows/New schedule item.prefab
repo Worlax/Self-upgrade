@@ -389,6 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputField: {fileID: 3084379227733152880}
+  nextChain: {fileID: 0}
   min: 0
   max: 59
   formatType: 1
@@ -2782,7 +2783,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2461876479411123643}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9ee939adeeb56e448fd3d912a65526e, type: 3}
   m_Name: 
@@ -4097,6 +4098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputField: {fileID: 2461876480032180849}
+  nextChain: {fileID: 812903838845080711}
   min: 0
   max: 23
   formatType: 2
@@ -5132,6 +5134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputField: {fileID: 8560075088849483446}
+  nextChain: {fileID: 7877525386534865691}
   min: 0
   max: 23
   formatType: 2
@@ -5260,6 +5263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputField: {fileID: 8463995529511400968}
+  nextChain: {fileID: 721892688699616107}
   min: 0
   max: 59
   formatType: 2
@@ -5689,6 +5693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputField: {fileID: 7069955028971749399}
+  nextChain: {fileID: 1969441243458266186}
   min: 0
   max: 59
   formatType: 2
@@ -6054,6 +6059,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputField: {fileID: 8326309779081647127}
+  nextChain: {fileID: 1973355889989033038}
   min: 0
   max: 23
   formatType: 1
